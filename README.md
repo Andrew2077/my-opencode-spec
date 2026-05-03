@@ -62,6 +62,143 @@ Copy-Item "$HOME\.opencode\opencode.example.json" "$HOME\.opencode\opencode.json
 
 Edit those local files manually. Do not commit them.
 
+## LLM installation instructions
+
+Use this section when an LLM or coding agent is asked to install this repo onto a new machine.
+
+### Operating rules for agents
+
+1. Treat this repository as private, but do not treat it as secret storage.
+2. Never print, commit, copy into chat, or overwrite real secrets from `.env` or `.opencode/opencode.json`.
+3. Do not use `git add .`; stage only the specific files you intentionally changed.
+4. Do not overwrite a target machine's real `$HOME/.opencode/opencode.json` unless the user explicitly asks. Prefer copying safe assets and merging only required config keys.
+5. Create or preserve a backup before changing `$HOME/.opencode`.
+6. Run validation before any commit or completion claim.
+
+### Windows install flow
+
+Run from a fresh clone of this repo:
+
+```powershell
+git status --short --branch
+powershell -ExecutionPolicy Bypass -File scripts/install-to-opencode.ps1 -DryRun
+powershell -ExecutionPolicy Bypass -File scripts/install-to-opencode.ps1
+powershell -ExecutionPolicy Bypass -File scripts/validate.ps1
+```
+
+After installation, create local-only files if they do not already exist:
+
+```powershell
+if (-not (Test-Path "$HOME\.opencode\.env")) {
+  Copy-Item "$HOME\.opencode\.env.example" "$HOME\.opencode\.env"
+}
+
+if (-not (Test-Path "$HOME\.opencode\opencode.json")) {
+  Copy-Item "$HOME\.opencode\opencode.example.json" "$HOME\.opencode\opencode.json"
+}
+```
+
+The user must edit those local files with real provider keys. Do not invent keys.
+
+### Linux or VPS install flow
+
+The PowerShell install script is the source of truth on Windows. On Linux/VPS hosts without PowerShell, mirror its behavior with shell commands:
+
+```bash
+set -eu
+repo="$HOME/my-opencode-spec"
+src="$repo/.opencode"
+dst="$HOME/.opencode"
+stamp="$(date +%Y%m%d-%H%M%S)"
+
+test -d "$src"
+mkdir -p "$dst"
+cp -a "$dst" "$HOME/.opencode.backup-$stamp"
+
+rsync -a \
+  --exclude opencode.json \
+  --exclude opencode.example.json \
+  --exclude .env \
+  --exclude memory.db \
+  --exclude memory.db-shm \
+  --exclude memory.db-wal \
+  --exclude node_modules \
+  --exclude '*.bak' \
+  --exclude '*.backup' \
+  --exclude '*.tmp' \
+  --exclude '*.temp' \
+  --exclude '*.log' \
+  --exclude '*.orig' \
+  --exclude '*.old' \
+  "$src/" "$dst/"
+```
+
+If SocratiCode support is needed, merge only these keys into the existing real config:
+
+```bash
+node <<'NODE'
+const fs = require('fs');
+const path = `${process.env.HOME}/.opencode/opencode.json`;
+const stamp = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14);
+let config = {};
+
+if (fs.existsSync(path)) {
+  fs.copyFileSync(path, `${path}.pre-socraticode-${stamp}.bak`);
+  config = JSON.parse(fs.readFileSync(path, 'utf8'));
+}
+
+config.agent = config.agent || {};
+config.agent['socraticode-explorer'] = {
+  model: 'cliproxyapi/gpt-5.5',
+  mode: 'all',
+};
+
+config.mcp = config.mcp || {};
+config.mcp.socraticode = {
+  type: 'local',
+  command: ['npx', '-y', 'socraticode'],
+  enabled: true,
+};
+
+fs.writeFileSync(path, `${JSON.stringify(config, null, 2)}\n`, { mode: 0o600 });
+console.log('socraticode config merged');
+NODE
+```
+
+### OpenSpec install flow
+
+Install OpenSpec only when Node.js is `20.19.0` or newer:
+
+```bash
+node --version
+npm install -g @fission-ai/openspec@latest
+openspec --version
+```
+
+Use the scoped package `@fission-ai/openspec`. Do not install the stale unscoped `openspec` package or nonexistent `@openspec/cli` package.
+
+### Required verification
+
+Before reporting completion, run the relevant checks and quote the exact output:
+
+```bash
+opencode --version
+openspec --version
+node -e "const c=require(process.env.HOME + '/.opencode/opencode.json'); if ((c.mcp?.socraticode?.command || []).join(' ') !== 'npx -y socraticode') process.exit(1); if (!c.agent?.['socraticode-explorer']) process.exit(2); console.log('socraticode config ok')"
+test -f "$HOME/.opencode/agent/socraticode-explorer.md"
+npm view socraticode version engines --json
+```
+
+For this repo before committing:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/validate.ps1
+git status --short --branch
+git diff --check
+```
+
+Expected safety outcome: raw `.opencode/opencode.json`, `.env`, `memory.db*`, `node_modules/`, backups, logs, and temp files stay untracked.
+
 ## Validation
 
 Run before every commit/push:
