@@ -1,0 +1,45 @@
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# OpenCode runtime state
+**/memory.db
+**/memory.db-*
+**/session*.db
+**/sessions.db
+**/.opencode/memory.db*
+
+# Dependencies and build output
+node_modules/
+**/node_modules/
+dist/
+build/
+coverage/
+
+# Backups and temp files
+*.bak
+*.backup
+*.tmp
+*.temp
+*.log
+*.orig
+*.old
+opencode.tmp.json
+opencode.json.*.bak
+opencode.json.*backup*
+
+# Raw machine-local config. Commit sanitized example only.
+.opencode/opencode.json
+!.opencode/opencode.example.json
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

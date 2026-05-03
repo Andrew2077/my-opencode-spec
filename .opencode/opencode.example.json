@@ -1,0 +1,847 @@
+﻿{
+    "$schema":  "https://opencode.ai/config.json",
+    "model":  "cliproxyapi/gpt-5.5",
+    "provider":  {
+                     "claude-local":  {
+                                          "models":  {
+                                                         "claude-haiku-4-5-20251001":  {
+                                                                                           "limit":  {
+                                                                                                         "context":  200000,
+                                                                                                         "output":  64000
+                                                                                                     },
+                                                                                           "modalities":  {
+                                                                                                              "input":  "text",
+                                                                                                              "output":  "text"
+                                                                                                          },
+                                                                                           "name":  "Claude Local Haiku 4.5"
+                                                                                       },
+                                                         "claude-sonnet-4-6":  {
+                                                                                   "limit":  {
+                                                                                                 "context":  200000,
+                                                                                                 "output":  64000
+                                                                                             },
+                                                                                   "modalities":  {
+                                                                                                      "input":  "text",
+                                                                                                      "output":  "text"
+                                                                                                  },
+                                                                                   "name":  "Claude Local Sonnet 4.6"
+                                                                               },
+                                                         "claude-sonnet-4-6-thinking":  {
+                                                                                            "limit":  {
+                                                                                                          "context":  200000,
+                                                                                                          "output":  64000
+                                                                                                      },
+                                                                                            "modalities":  {
+                                                                                                               "input":  "text",
+                                                                                                               "output":  "text"
+                                                                                                           },
+                                                                                            "name":  "Claude Local Sonnet 4.6 Thinking",
+                                                                                            "reasoning":  true
+                                                                                        }
+                                                     },
+                                          "name":  "Claude Local Proxy",
+                                          "npm":  "@ai-sdk/openai-compatible",
+                                          "options":  {
+                                                          "apiKey":  "__SET_IN_LOCAL_ENV_OR_CONFIG__",
+                                                          "baseURL":  "http://localhost:8000/v1"
+                                                      }
+                                      },
+                     "cliproxyapi":  {
+                                         "models":  {
+                                                        "claude-opus-4-6-thinking":  {
+                                                                                         "limit":  {
+                                                                                                       "context":  200000,
+                                                                                                       "output":  64000
+                                                                                                   },
+                                                                                         "modalities":  {
+                                                                                                            "input":  [
+                                                                                                                          "text",
+                                                                                                                          "image",
+                                                                                                                          "pdf"
+                                                                                                                      ],
+                                                                                                            "output":  "text"
+                                                                                                        },
+                                                                                         "name":  "Claude Opus 4.6 Thinking",
+                                                                                         "reasoning":  true
+                                                                                     },
+                                                        "claude-sonnet-4-6":  {
+                                                                                  "limit":  {
+                                                                                                "context":  200000,
+                                                                                                "output":  64000
+                                                                                            },
+                                                                                  "modalities":  {
+                                                                                                     "input":  [
+                                                                                                                   "text",
+                                                                                                                   "image",
+                                                                                                                   "pdf"
+                                                                                                               ],
+                                                                                                     "output":  "text"
+                                                                                                 },
+                                                                                  "name":  "Claude Sonnet 4.6"
+                                                                              },
+                                                        "gemini-2.5-flash":  {
+                                                                                 "limit":  {
+                                                                                               "context":  1000000,
+                                                                                               "output":  65536
+                                                                                           },
+                                                                                 "modalities":  {
+                                                                                                    "input":  [
+                                                                                                                  "text",
+                                                                                                                  "image",
+                                                                                                                  "pdf"
+                                                                                                              ],
+                                                                                                    "output":  "text"
+                                                                                                },
+                                                                                 "name":  "Gemini 2.5 Flash",
+                                                                                 "reasoning":  true
+                                                                             },
+                                                        "gemini-2.5-flash-lite":  {
+                                                                                      "limit":  {
+                                                                                                    "context":  1000000,
+                                                                                                    "output":  65536
+                                                                                                },
+                                                                                      "modalities":  {
+                                                                                                         "input":  [
+                                                                                                                       "text",
+                                                                                                                       "image",
+                                                                                                                       "pdf"
+                                                                                                                   ],
+                                                                                                         "output":  "text"
+                                                                                                     },
+                                                                                      "name":  "Gemini 2.5 Flash Lite"
+                                                                                  },
+                                                        "gemini-2.5-pro":  {
+                                                                               "limit":  {
+                                                                                             "context":  1000000,
+                                                                                             "output":  65536
+                                                                                         },
+                                                                               "modalities":  {
+                                                                                                  "input":  [
+                                                                                                                "text",
+                                                                                                                "image",
+                                                                                                                "pdf"
+                                                                                                            ],
+                                                                                                  "output":  "text"
+                                                                                              },
+                                                                               "name":  "Gemini 2.5 Pro",
+                                                                               "reasoning":  true
+                                                                           },
+                                                        "gemini-3-flash-preview":  {
+                                                                                       "limit":  {
+                                                                                                     "context":  1000000,
+                                                                                                     "output":  65536
+                                                                                                 },
+                                                                                       "modalities":  {
+                                                                                                          "input":  [
+                                                                                                                        "text",
+                                                                                                                        "image",
+                                                                                                                        "pdf"
+                                                                                                                    ],
+                                                                                                          "output":  "text"
+                                                                                                      },
+                                                                                       "name":  "Gemini 3 Flash Preview",
+                                                                                       "reasoning":  true
+                                                                                   },
+                                                        "gemini-3-pro-low":  {
+                                                                                 "limit":  {
+                                                                                               "context":  1000000,
+                                                                                               "output":  65536
+                                                                                           },
+                                                                                 "modalities":  {
+                                                                                                    "input":  [
+                                                                                                                  "text",
+                                                                                                                  "image",
+                                                                                                                  "pdf"
+                                                                                                              ],
+                                                                                                    "output":  "text"
+                                                                                                },
+                                                                                 "name":  "Gemini 3 Pro Low",
+                                                                                 "reasoning":  true
+                                                                             },
+                                                        "gemini-3-pro-preview":  {
+                                                                                     "limit":  {
+                                                                                                   "context":  1000000,
+                                                                                                   "output":  65536
+                                                                                               },
+                                                                                     "modalities":  {
+                                                                                                        "input":  [
+                                                                                                                      "text",
+                                                                                                                      "image",
+                                                                                                                      "pdf"
+                                                                                                                  ],
+                                                                                                        "output":  "text"
+                                                                                                    },
+                                                                                     "name":  "Gemini 3 Pro Preview",
+                                                                                     "reasoning":  true
+                                                                                 },
+                                                        "gemini-3.1-flash-image":  {
+                                                                                       "limit":  {
+                                                                                                     "context":  1000000,
+                                                                                                     "output":  65536
+                                                                                                 },
+                                                                                       "name":  "Gemini 3.1 Flash Image"
+                                                                                   },
+                                                        "gemini-3.1-flash-lite":  {
+                                                                                      "limit":  {
+                                                                                                    "context":  1000000,
+                                                                                                    "output":  65536
+                                                                                                },
+                                                                                      "modalities":  {
+                                                                                                         "input":  [
+                                                                                                                       "text",
+                                                                                                                       "image",
+                                                                                                                       "pdf"
+                                                                                                                   ],
+                                                                                                         "output":  "text"
+                                                                                                     },
+                                                                                      "name":  "Gemini 3.1 Flash Lite"
+                                                                                  },
+                                                        "gemini-3.1-flash-lite-preview":  {
+                                                                                              "limit":  {
+                                                                                                            "context":  1000000,
+                                                                                                            "output":  65536
+                                                                                                        },
+                                                                                              "modalities":  {
+                                                                                                                 "input":  [
+                                                                                                                               "text",
+                                                                                                                               "image",
+                                                                                                                               "pdf"
+                                                                                                                           ],
+                                                                                                                 "output":  "text"
+                                                                                                             },
+                                                                                              "name":  "Gemini 3.1 Flash Lite Preview",
+                                                                                              "reasoning":  true
+                                                                                          },
+                                                        "gemini-3.1-pro-high":  {
+                                                                                    "limit":  {
+                                                                                                  "context":  1000000,
+                                                                                                  "output":  65536
+                                                                                              },
+                                                                                    "modalities":  {
+                                                                                                       "input":  [
+                                                                                                                     "text",
+                                                                                                                     "image",
+                                                                                                                     "pdf"
+                                                                                                                 ],
+                                                                                                       "output":  "text"
+                                                                                                   },
+                                                                                    "name":  "Gemini 3.1 Pro High",
+                                                                                    "reasoning":  true
+                                                                                },
+                                                        "gemini-3.1-pro-low":  {
+                                                                                   "limit":  {
+                                                                                                 "context":  1000000,
+                                                                                                 "output":  65536
+                                                                                             },
+                                                                                   "modalities":  {
+                                                                                                      "input":  [
+                                                                                                                    "text",
+                                                                                                                    "image",
+                                                                                                                    "pdf"
+                                                                                                                ],
+                                                                                                      "output":  "text"
+                                                                                                  },
+                                                                                   "name":  "Gemini 3.1 Pro Low",
+                                                                                   "reasoning":  true
+                                                                               },
+                                                        "gemini-3.1-pro-preview":  {
+                                                                                       "limit":  {
+                                                                                                     "context":  1000000,
+                                                                                                     "output":  65536
+                                                                                                 },
+                                                                                       "modalities":  {
+                                                                                                          "input":  [
+                                                                                                                        "text",
+                                                                                                                        "image",
+                                                                                                                        "pdf"
+                                                                                                                    ],
+                                                                                                          "output":  "text"
+                                                                                                      },
+                                                                                       "name":  "Gemini 3.1 Pro Preview",
+                                                                                       "reasoning":  true
+                                                                                   },
+                                                        "glm-4.6":  {
+                                                                        "limit":  {
+                                                                                      "context":  128000,
+                                                                                      "output":  16384
+                                                                                  },
+                                                                        "modalities":  {
+                                                                                           "input":  "text",
+                                                                                           "output":  "text"
+                                                                                       },
+                                                                        "name":  "GLM 4.6",
+                                                                        "reasoning":  true
+                                                                    },
+                                                        "glm-4.7":  {
+                                                                        "limit":  {
+                                                                                      "context":  128000,
+                                                                                      "output":  16384
+                                                                                  },
+                                                                        "modalities":  {
+                                                                                           "input":  "text",
+                                                                                           "output":  "text"
+                                                                                       },
+                                                                        "name":  "GLM 4.7",
+                                                                        "reasoning":  true
+                                                                    },
+                                                        "glm-4.5":  {
+                                                                        "limit":  {
+                                                                                      "context":  128000,
+                                                                                      "output":  16384
+                                                                                  },
+                                                                        "modalities":  {
+                                                                                           "input":  "text",
+                                                                                           "output":  "text"
+                                                                                       },
+                                                                        "name":  "GLM 4.5",
+                                                                        "reasoning":  true
+                                                                    },
+                                                        "glm-4.5-air":  {
+                                                                            "limit":  {
+                                                                                          "context":  128000,
+                                                                                          "output":  16384
+                                                                                      },
+                                                                            "modalities":  {
+                                                                                               "input":  "text",
+                                                                                               "output":  "text"
+                                                                                           },
+                                                                            "name":  "GLM 4.5 Air",
+                                                                            "reasoning":  true
+                                                                        },
+                                                        "glm-5":  {
+                                                                      "limit":  {
+                                                                                    "context":  128000,
+                                                                                    "output":  16384
+                                                                                },
+                                                                      "modalities":  {
+                                                                                         "input":  "text",
+                                                                                         "output":  "text"
+                                                                                     },
+                                                                      "name":  "GLM 5",
+                                                                      "reasoning":  true
+                                                                  },
+                                                        "glm-5.1":  {
+                                                                        "limit":  {
+                                                                                      "context":  128000,
+                                                                                      "output":  16384
+                                                                                  },
+                                                                        "modalities":  {
+                                                                                           "input":  "text",
+                                                                                           "output":  "text"
+                                                                                       },
+                                                                        "name":  "GLM 5.1",
+                                                                        "reasoning":  true
+                                                                    },
+                                                        "glm-5-turbo":  {
+                                                                            "limit":  {
+                                                                                          "context":  128000,
+                                                                                          "output":  16384
+                                                                                      },
+                                                                            "modalities":  {
+                                                                                               "input":  "text",
+                                                                                               "output":  "text"
+                                                                                           },
+                                                                            "name":  "GLM 5 Turbo",
+                                                                            "reasoning":  true
+                                                                        },
+                                                        "gpt-5.2":  {
+                                                                        "limit":  {
+                                                                                      "context":  400000,
+                                                                                      "output":  32768
+                                                                                  },
+                                                                        "modalities":  {
+                                                                                           "input":  [
+                                                                                                         "text",
+                                                                                                         "image",
+                                                                                                         "pdf"
+                                                                                                     ],
+                                                                                           "output":  "text"
+                                                                                       },
+                                                                        "name":  "GPT 5.2",
+                                                                        "reasoning":  true
+                                                                    },
+                                                        "gpt-5.3-codex":  {
+                                                                              "limit":  {
+                                                                                            "context":  400000,
+                                                                                            "output":  32768
+                                                                                        },
+                                                                              "modalities":  {
+                                                                                                 "input":  [
+                                                                                                               "text",
+                                                                                                               "image",
+                                                                                                               "pdf"
+                                                                                                           ],
+                                                                                                 "output":  "text"
+                                                                                             },
+                                                                              "name":  "GPT 5.3 Codex",
+                                                                              "reasoning":  true
+                                                                          },
+                                                        "gpt-5.4":  {
+                                                                        "limit":  {
+                                                                                      "context":  400000,
+                                                                                      "output":  128000
+                                                                                  },
+                                                                        "modalities":  {
+                                                                                           "input":  [
+                                                                                                         "text",
+                                                                                                         "image",
+                                                                                                         "pdf"
+                                                                                                     ],
+                                                                                           "output":  "text"
+                                                                                       },
+                                                                        "name":  "GPT 5.4",
+                                                                        "reasoning":  true
+                                                                    },
+                                                        "gpt-5.4-mini":  {
+                                                                             "limit":  {
+                                                                                           "context":  400000,
+                                                                                           "output":  32768
+                                                                                       },
+                                                                             "modalities":  {
+                                                                                                "input":  [
+                                                                                                              "text",
+                                                                                                              "image",
+                                                                                                              "pdf"
+                                                                                                          ],
+                                                                                                "output":  "text"
+                                                                                            },
+                                                                             "name":  "GPT 5.4 Mini",
+                                                                             "reasoning":  true
+                                                                         },
+                                                        "gpt-5.5":  {
+                                                                        "limit":  {
+                                                                                      "context":  400000,
+                                                                                      "output":  128000
+                                                                                  },
+                                                                        "modalities":  {
+                                                                                           "input":  [
+                                                                                                         "text",
+                                                                                                         "image",
+                                                                                                         "pdf"
+                                                                                                     ],
+                                                                                           "output":  "text"
+                                                                                       },
+                                                                        "name":  "GPT 5.5",
+                                                                        "reasoning":  true,
+                                                                        "disabled":  false
+                                                                    },
+                                                        "codex-auto-review":  {
+                                                                                  "limit":  {
+                                                                                                "context":  200000,
+                                                                                                "output":  32768
+                                                                                            },
+                                                                                  "modalities":  {
+                                                                                                     "input":  "text",
+                                                                                                     "output":  "text"
+                                                                                                 },
+                                                                                  "name":  "Codex Auto Review",
+                                                                                  "reasoning":  true,
+                                                                                  "disabled":  true
+                                                                              },
+                                                        "gpt-oss-120b-medium":  {
+                                                                                    "limit":  {
+                                                                                                  "context":  128000,
+                                                                                                  "output":  16384
+                                                                                              },
+                                                                                    "name":  "GPT OSS 120b Medium"
+                                                                                },
+                                                        "gpt-oss:20b":  {
+                                                                            "limit":  {
+                                                                                          "context":  128000,
+                                                                                          "output":  16384
+                                                                                      },
+                                                                            "name":  "GPT OSS 20b"
+                                                                        },
+                                                        "glm-5.1(go)":  {
+                                                                            "limit":  {
+                                                                                          "context":  204800,
+                                                                                          "output":  131072
+                                                                                      },
+                                                                            "modalities":  {
+                                                                                               "input":  "text",
+                                                                                               "output":  "text"
+                                                                                           },
+                                                                            "name":  "GLM 5.1 (OpenCode Go)",
+                                                                            "reasoning":  true
+                                                                        },
+                                                        "glm-5(go)":  {
+                                                                          "limit":  {
+                                                                                        "context":  204800,
+                                                                                        "output":  131072
+                                                                                    },
+                                                                          "modalities":  {
+                                                                                             "input":  "text",
+                                                                                             "output":  "text"
+                                                                                         },
+                                                                          "name":  "GLM 5 (OpenCode Go)",
+                                                                          "reasoning":  true
+                                                                      },
+                                                        "kimi-k2":  {
+                                                                        "limit":  {
+                                                                                      "context":  131072,
+                                                                                      "output":  8192
+                                                                                  },
+                                                                        "modalities":  {
+                                                                                           "input":  [
+                                                                                                         "text",
+                                                                                                         "image"
+                                                                                                     ],
+                                                                                           "output":  "text"
+                                                                                       },
+                                                                        "name":  "Kimi K2",
+                                                                        "reasoning":  true
+                                                                    },
+                                                        "kimi-k2-thinking":  {
+                                                                                 "limit":  {
+                                                                                               "context":  131072,
+                                                                                               "output":  16384
+                                                                                           },
+                                                                                 "modalities":  {
+                                                                                                    "input":  [
+                                                                                                                  "text",
+                                                                                                                  "image"
+                                                                                                              ],
+                                                                                                    "output":  "text"
+                                                                                                },
+                                                                                 "name":  "Kimi K2 Thinking",
+                                                                                 "reasoning":  true
+                                                                             },
+                                                        "kimi-k2.5":  {
+                                                                          "limit":  {
+                                                                                        "context":  262144,
+                                                                                        "output":  65536
+                                                                                    },
+                                                                          "modalities":  {
+                                                                                             "input":  [
+                                                                                                           "text",
+                                                                                                           "image",
+                                                                                                           "video"
+                                                                                                       ],
+                                                                                             "output":  "text"
+                                                                                         },
+                                                                          "name":  "Kimi K2.5",
+                                                                          "reasoning":  true
+                                                                      },
+                                                        "kimi-k2.6":  {
+                                                                          "limit":  {
+                                                                                        "context":  262144,
+                                                                                        "output":  65536
+                                                                                    },
+                                                                          "modalities":  {
+                                                                                             "input":  [
+                                                                                                           "text",
+                                                                                                           "image",
+                                                                                                           "video"
+                                                                                                       ],
+                                                                                             "output":  "text"
+                                                                                         },
+                                                                          "name":  "Kimi K2.6",
+                                                                          "reasoning":  true
+                                                                      },
+                                                        "kimi-k2.5(go)":  {
+                                                                              "limit":  {
+                                                                                            "context":  262144,
+                                                                                            "output":  65536
+                                                                                        },
+                                                                              "modalities":  {
+                                                                                                 "input":  [
+                                                                                                               "text",
+                                                                                                               "image",
+                                                                                                               "video"
+                                                                                                           ],
+                                                                                                 "output":  "text"
+                                                                                             },
+                                                                              "name":  "Kimi K2.5 (OpenCode Go)",
+                                                                              "reasoning":  true
+                                                                          },
+                                                        "kimi-k2.6(go)":  {
+                                                                              "limit":  {
+                                                                                            "context":  262144,
+                                                                                            "output":  65536
+                                                                                        },
+                                                                              "modalities":  {
+                                                                                                 "input":  [
+                                                                                                               "text",
+                                                                                                               "image",
+                                                                                                               "video"
+                                                                                                           ],
+                                                                                                 "output":  "text"
+                                                                                             },
+                                                                              "name":  "Kimi K2.6 (OpenCode Go)",
+                                                                              "reasoning":  true
+                                                                          },
+                                                        "mimo-v2-pro(go)":  {
+                                                                                "limit":  {
+                                                                                              "context":  1048576,
+                                                                                              "output":  64000
+                                                                                          },
+                                                                                "modalities":  {
+                                                                                                   "input":  "text",
+                                                                                                   "output":  "text"
+                                                                                               },
+                                                                                "name":  "MiMo V2 Pro (OpenCode Go)",
+                                                                                "reasoning":  true
+                                                                            },
+                                                        "mimo-v2-omni(go)":  {
+                                                                                 "limit":  {
+                                                                                               "context":  262144,
+                                                                                               "output":  64000
+                                                                                           },
+                                                                                 "modalities":  {
+                                                                                                    "input":  [
+                                                                                                                  "text",
+                                                                                                                  "image",
+                                                                                                                  "audio",
+                                                                                                                  "pdf"
+                                                                                                              ],
+                                                                                                    "output":  "text"
+                                                                                                },
+                                                                                 "name":  "MiMo V2 Omni (OpenCode Go)",
+                                                                                 "reasoning":  true
+                                                                             },
+                                                        "minimax-m2.7(go)":  {
+                                                                                 "limit":  {
+                                                                                               "context":  204800,
+                                                                                               "output":  131072
+                                                                                           },
+                                                                                 "modalities":  {
+                                                                                                    "input":  "text",
+                                                                                                    "output":  "text"
+                                                                                                },
+                                                                                 "name":  "MiniMax M2.7 (OpenCode Go)",
+                                                                                 "reasoning":  true
+                                                                             },
+                                                        "minimax-m2.5(go)":  {
+                                                                                 "limit":  {
+                                                                                               "context":  204800,
+                                                                                               "output":  65536
+                                                                                           },
+                                                                                 "modalities":  {
+                                                                                                    "input":  "text",
+                                                                                                    "output":  "text"
+                                                                                                },
+                                                                                 "name":  "MiniMax M2.5 (OpenCode Go)",
+                                                                                 "reasoning":  true
+                                                                             },
+                                                        "qwen3.6-plus(go)":  {
+                                                                                 "limit":  {
+                                                                                               "context":  262144,
+                                                                                               "output":  65536
+                                                                                           },
+                                                                                 "modalities":  {
+                                                                                                    "input":  [
+                                                                                                                  "text",
+                                                                                                                  "image",
+                                                                                                                  "video"
+                                                                                                              ],
+                                                                                                    "output":  "text"
+                                                                                                },
+                                                                                 "name":  "Qwen3.6 Plus (OpenCode Go)",
+                                                                                 "reasoning":  true
+                                                                             },
+                                                        "qwen3.5-plus(go)":  {
+                                                                                 "limit":  {
+                                                                                               "context":  262144,
+                                                                                               "output":  65536
+                                                                                           },
+                                                                                 "modalities":  {
+                                                                                                    "input":  [
+                                                                                                                  "text",
+                                                                                                                  "image",
+                                                                                                                  "video"
+                                                                                                              ],
+                                                                                                    "output":  "text"
+                                                                                                },
+                                                                                 "name":  "Qwen3.5 Plus (OpenCode Go)",
+                                                                                 "reasoning":  true
+                                                                             },
+                                                        "sonnet-46":  {
+                                                                          "limit":  {
+                                                                                        "context":  200000,
+                                                                                        "output":  64000
+                                                                                    },
+                                                                          "modalities":  {
+                                                                                             "input":  [
+                                                                                                           "text",
+                                                                                                           "image",
+                                                                                                           "pdf"
+                                                                                                       ],
+                                                                                             "output":  "text"
+                                                                                         },
+                                                                          "name":  "Sonnet 4.6 (Cursor-safe)"
+                                                                      },
+                                                        "opus-46":  {
+                                                                        "limit":  {
+                                                                                      "context":  200000,
+                                                                                      "output":  64000
+                                                                                  },
+                                                                        "modalities":  {
+                                                                                           "input":  [
+                                                                                                         "text",
+                                                                                                         "image",
+                                                                                                         "pdf"
+                                                                                                     ],
+                                                                                           "output":  "text"
+                                                                                       },
+                                                                        "name":  "Opus 4.6 Thinking (Cursor-safe)",
+                                                                        "reasoning":  true
+                                                                    },
+                                                        "DeepSeek: DeepSeek V4 Pro (Free)":  {
+                                                                                                 "limit":  {
+                                                                                                               "context":  128000,
+                                                                                                               "output":  8192
+                                                                                                           },
+                                                                                                 "modalities":  {
+                                                                                                                    "input":  "text",
+                                                                                                                    "output":  "text"
+                                                                                                                },
+                                                                                                 "name":  "DeepSeek V4 Pro (Free)",
+                                                                                                 "reasoning":  true
+                                                                                             },
+                                                        "DeepSeek: DeepSeek V4 Flash (Free)":  {
+                                                                                                   "limit":  {
+                                                                                                                 "context":  128000,
+                                                                                                                 "output":  8192
+                                                                                                             },
+                                                                                                   "modalities":  {
+                                                                                                                      "input":  "text",
+                                                                                                                      "output":  "text"
+                                                                                                                  },
+                                                                                                   "name":  "DeepSeek V4 Flash (Free)",
+                                                                                                   "reasoning":  true
+                                                                                               },
+                                                        "Z.AI: GLM 4.7 Flash (Free)":  {
+                                                                                           "limit":  {
+                                                                                                         "context":  128000,
+                                                                                                         "output":  16384
+                                                                                                     },
+                                                                                           "modalities":  {
+                                                                                                              "input":  "text",
+                                                                                                              "output":  "text"
+                                                                                                          },
+                                                                                           "name":  "Z.AI GLM 4.7 Flash (Free)",
+                                                                                           "reasoning":  true
+                                                                                       },
+                                                        "Z.AI: GLM 4.6V Flash (Free)":  {
+                                                                                            "limit":  {
+                                                                                                          "context":  128000,
+                                                                                                          "output":  16384
+                                                                                                      },
+                                                                                            "modalities":  {
+                                                                                                               "input":  [
+                                                                                                                             "text",
+                                                                                                                             "image"
+                                                                                                                         ],
+                                                                                                               "output":  "text"
+                                                                                                           },
+                                                                                            "name":  "Z.AI GLM 4.6V Flash (Free)",
+                                                                                            "reasoning":  true
+                                                                                        }
+                                                    },
+                                         "name":  "CLIProxyAPI",
+                                         "npm":  "@ai-sdk/openai-compatible",
+                                         "options":  {
+                                                         "apiKey":  "__SET_IN_LOCAL_ENV_OR_CONFIG__",
+                                                         "baseURL":  "https://ai.privatemail.site/v1"
+                                                     }
+                                     }
+                 },
+    "plugin":  {
+
+               },
+    "experimental":  {
+                         "lsp_tool":  true
+                     },
+    "lsp":  {
+                "typescript":  {
+                                   "disabled":  true
+                               },
+                "pyright":  {
+                                "disabled":  true
+                            },
+                "javascript-typescript":  {
+                                              "command":  [
+                                                              "typescript-language-server",
+                                                              "--stdio"
+                                                          ],
+                                              "extensions":  [
+                                                                 ".ts",
+                                                                 ".tsx",
+                                                                 ".js",
+                                                                 ".jsx",
+                                                                 ".mjs",
+                                                                 ".cjs",
+                                                                 ".mts",
+                                                                 ".cts"
+                                                             ],
+                                              "initialization":  {
+                                                                     "tsserver":  {
+                                                                                      "path":  "C:/Users/Andrew/AppData/Roaming/npm/node_modules/typescript/lib/tsserver.js"
+                                                                                  }
+                                                                 }
+                                          },
+                "python":  {
+                               "command":  [
+                                               "pyright-langserver",
+                                               "--stdio"
+                                           ],
+                               "extensions":  [
+                                                  ".py",
+                                                  ".pyi"
+                                              ]
+                           }
+            },
+    "agent":  {
+                  "build":  {
+                                "model":  "cliproxyapi/gpt-5.5",
+                                "mode":  "all"
+                            },
+                  "local-chat":  {
+                                     "model":  "claude-local/claude-haiku-4-5-20251001",
+                                     "mode":  "all",
+                                     "tools":  {
+                                                   "bash":  false,
+                                                   "edit":  false,
+                                                   "write":  false,
+                                                   "read":  false,
+                                                   "grep":  false,
+                                                   "glob":  false,
+                                                   "list":  false,
+                                                   "patch":  false,
+                                                   "todowrite":  false,
+                                                   "task":  false
+                                               }
+                                 },
+                  "compaction":  {
+                                     "mode":  "all"
+                                 },
+                  "explore":  {
+                                  "model":  "cliproxyapi/gpt-5.5",
+                                  "mode":  "all"
+                              },
+                  "general":  {
+                                  "model":  "cliproxyapi/gpt-5.5",
+                                  "mode":  "all"
+                              },
+                  "painter":  {
+                                  "model":  "cliproxyapi/gemini-3.1-flash-image",
+                                  "mode":  "all"
+                              },
+                  "plan":  {
+                               "model":  "cliproxyapi/gpt-5.5",
+                               "mode":  "all"
+                           },
+                  "review":  {
+                                 "model":  "cliproxyapi/gpt-5.5",
+                                 "mode":  "all"
+                             },
+                  "scout":  {
+                                "model":  "cliproxyapi/gpt-5.5",
+                                "mode":  "all"
+                            },
+                  "vision":  {
+                                 "model":  "cliproxyapi/gemini-3.1-pro-preview",
+                                 "mode":  "all"
+                             }
+              }
+}
