@@ -842,6 +842,21 @@
                   "vision":  {
                                  "model":  "cliproxyapi/gemini-3.1-pro-preview",
                                  "mode":  "all"
-                             }
-              }
+                             },
+                  "socraticode-explorer":  {
+                                               "model":  "cliproxyapi/gpt-5.5",
+                                               "mode":  "all"
+                                           }
+              },
+    "mcp":  {
+                "socraticode":  {
+                                    "type":  "local",
+                                    "command":  [
+                                                    "npx",
+                                                    "-y",
+                                                    "socraticode"
+                                                ],
+                                    "enabled":  true
+                                }
+            }
 }
