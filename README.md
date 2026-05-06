@@ -226,3 +226,25 @@ Do not run `gh repo create` or `git push` until you confirm the owner/name and p
 ## OpenSpec
 
 See [`docs/OPENSPEC.md`](docs/OPENSPEC.md) for installing OpenSpec and using it with this OpenCode setup.
+
+This setup also includes an `openspec-engineer` agent for spec-first API review. Use it when you need contract validation, OpenSpec artifact checks, or implementation/spec drift review. It uses the OpenSpec CLI and generated project assets; OpenSpec is installed per machine/project with `npm install -g @fission-ai/openspec@latest` and `openspec init --tools opencode`.
+
+## GSD Orchestrator
+
+This setup includes a unified `gsd` agent that ports GSD (Get Shit Done) orchestration into OpenCode without installing the full 86+ slash-command pack.
+
+Use it for end-to-end feature work, e.g.:
+
+```text
+Use the gsd agent in auto mode to plan, implement, verify, and prepare this feature for PR.
+```
+
+Supported GSD-style controls:
+
+| Control | Values | Purpose |
+| --- | --- | --- |
+| Mode | `interactive`, `auto`, `yolo` | Controls autonomy and checkpoint behavior. |
+| Granularity | `standard`, `detailed`, `minimal` | Controls plan/delegation detail. |
+| Model profile | `balanced`, `performance`, `efficient`, `max` | Routing hint for search depth, review depth, and delegation. |
+
+The agent is a meta-orchestrator: it applies GSD methodology and delegates to existing OpenCode agents (`plan`, `build`, `review`, `explore`, `scout`, `socraticode-explorer`) instead of duplicating the full GSD command tree.

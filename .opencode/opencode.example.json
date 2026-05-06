@@ -843,11 +843,19 @@
                                  "model":  "cliproxyapi/gemini-3.1-pro-preview",
                                  "mode":  "all"
                              },
-                  "socraticode-explorer":  {
+                   "socraticode-explorer":  {
+                                                "model":  "cliproxyapi/gpt-5.5",
+                                                "mode":  "all"
+                                            },
+                   "gsd":  {
+                                "model":  "cliproxyapi/gpt-5.5",
+                                "mode":  "all"
+                            },
+                   "openspec-engineer":  {
                                                "model":  "cliproxyapi/gpt-5.5",
                                                "mode":  "all"
-                                           }
-              },
+                                            }
+               },
     "mcp":  {
                 "socraticode":  {
                                     "type":  "local",
