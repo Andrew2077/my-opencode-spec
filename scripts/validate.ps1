@@ -79,7 +79,7 @@ function Test-AllowedSecretReference {
     return $false
 }
 
-$required = @("README.md", ".gitignore", "sync-manifest.json", "scripts/fetch-from-device.ps1", "scripts/install-to-opencode.ps1", "scripts/validate.ps1", "docs/OPENCODE_SYNC.md", "docs/OPENSPEC.md", "docs/SECURITY.md")
+$required = @("README.md", ".gitignore", "sync-manifest.json", "scripts/fetch-from-device.ps1", "scripts/install-to-opencode.ps1", "scripts/validate.ps1", "scripts/update-tools.ps1", "docs/OPENCODE_SYNC.md", "docs/OPENSPEC.md", "docs/SECURITY.md")
 foreach ($path in $required) {
     if (-not (Test-Path -LiteralPath (Join-Path $repo $path))) {
         Add-Error "missing required file: $path"

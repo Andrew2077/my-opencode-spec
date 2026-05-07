@@ -245,6 +245,39 @@ Supported GSD-style controls:
 | --- | --- | --- |
 | Mode | `interactive`, `auto`, `yolo` | Controls autonomy and checkpoint behavior. |
 | Granularity | `standard`, `detailed`, `minimal` | Controls plan/delegation detail. |
-| Model profile | `balanced`, `performance`, `efficient`, `max` | Routing hint for search depth, review depth, and delegation. |
+| Model profile | `balanced`, `performance`, `efficient`, `max` | Routing hint for subagent model selection and delegation depth. |
 
 The agent is a meta-orchestrator: it applies GSD methodology and delegates to existing OpenCode agents (`plan`, `build`, `review`, `explore`, `scout`, `socraticode-explorer`) instead of duplicating the full GSD command tree.
+
+### Subagent Model Selection (Quota Protection)
+
+Both the `gsd` and `openspec-engineer` agents default all subagents to `cliproxyapi/gpt-5.5`:
+
+- In `interactive` mode, the agent asks which model to use **once** at session start.
+- In `auto`/`yolo` mode, it uses `cliproxyapi/gpt-5.5` without asking.
+- The main session model is only used for the lead orchestrator's own reasoning.
+
+The `compaction` agent also uses `cliproxyapi/gpt-5.5` to avoid burning expensive quota during context compaction.
+
+## Update Tools
+
+Run the update script to fetch the latest versions of GSD, OpenSpec, SocratiCode, and sync updated assets into this repo:
+
+```powershell
+# Dry run first
+powershell -ExecutionPolicy Bypass -File scripts/update-tools.ps1 -DryRun
+
+# Apply updates
+powershell -ExecutionPolicy Bypass -File scripts/update-tools.ps1
+```
+
+The script:
+1. Checks current vs. latest versions of all npm tools.
+2. Re-runs the GSD installer (`npx get-shit-done-cc@latest --opencode --global --non-interactive`) to adopt latest commands/agents/workflows.
+3. Syncs live `.opencode/` assets back into this repo (respecting sync-manifest rules).
+4. Sanitizes `opencode.json` → `opencode.example.json` (redacts secrets).
+5. Runs `validate.ps1` to ensure no secrets leaked.
+
+Flags: `-SkipNpm`, `-SkipSync`, `-SkipValidation` for partial runs.
+
+For LLM agents performing updates, see [`docs/LLM-UPDATE-INSTRUCTIONS.md`](docs/LLM-UPDATE-INSTRUCTIONS.md) for the full step-by-step flow including safety rules, secret handling, and custom agent preservation.
