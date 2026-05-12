@@ -278,7 +278,21 @@ if ($SkipSync) {
                 }
 
                 Redact-JsonObject $json $redactKeys $redaction
-                $json | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $destFile -Encoding UTF8
+                $serialized = $json | ConvertTo-Json -Depth 20
+                if ($sanitize.PSObject.Properties.Name -contains 'stringReplacements' -and $null -ne $sanitize.stringReplacements) {
+                    foreach ($replacement in $sanitize.stringReplacements) {
+                        $pattern = [string]$replacement.pattern
+                        $replace = [string]$replacement.replacement
+                        if (-not [string]::IsNullOrEmpty($pattern)) {
+                            $before = $serialized
+                            $serialized = [regex]::Replace($serialized, $pattern, $replace)
+                            if ($before -ne $serialized) {
+                                Write-Ok "applied sanitize rule: $($replacement.description)"
+                            }
+                        }
+                    }
+                }
+                $serialized | Set-Content -LiteralPath $destFile -Encoding UTF8
                 Write-Ok "Sanitized: $($sanitize.source) -> $($sanitize.destination)"
             }
         } else {

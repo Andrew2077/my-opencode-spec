@@ -50,14 +50,25 @@ function Test-AllowedSecretReference {
         [string]$RelativePath
     )
 
-    $allowFragments = @(
+    # Only allow literal placeholder tokens. A real value that happens to live
+    # under docs/ or .opencode/skill/ is NOT auto-allowed.
+    $placeholderFragments = @(
         "your_",
         "your-",
+        "YOUR_",
+        "YOUR-",
         "__SET_IN_LOCAL_ENV_OR_CONFIG__",
         "placeholder",
+        "PLACEHOLDER",
         "example",
+        "EXAMPLE",
         "REDACTED",
+        "redacted",
         "changeme",
+        "CHANGEME",
+        "<redacted>",
+        "<token>",
+        "<secret>",
         "process.env.",
         "context.env.",
         "this.env.",
@@ -68,12 +79,8 @@ function Test-AllowedSecretReference {
         "SecretsStoreBinding"
     )
 
-    foreach ($fragment in $allowFragments) {
+    foreach ($fragment in $placeholderFragments) {
         if ($Value -match [regex]::Escape($fragment)) { return $true }
-    }
-
-    if ($RelativePath -match "(^|/)(docs|\.opencode/skill)/" -and $Value -match "(?i)(API_KEY|TOKEN|SECRET|PASSWORD)") {
-        return $true
     }
 
     return $false

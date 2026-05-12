@@ -206,7 +206,21 @@ foreach ($rule in $manifest.sanitizeJson) {
     if ($DryRun) {
         Write-Host "DRY sanitize $sourceJson -> $targetJson"
     } else {
-        $redacted | ConvertTo-Json -Depth 100 | Set-Content -LiteralPath $targetJson -Encoding UTF8
+        $serialized = $redacted | ConvertTo-Json -Depth 100
+        if ($rule.PSObject.Properties.Name -contains 'stringReplacements' -and $null -ne $rule.stringReplacements) {
+            foreach ($replacement in $rule.stringReplacements) {
+                $pattern = [string]$replacement.pattern
+                $replace = [string]$replacement.replacement
+                if (-not [string]::IsNullOrEmpty($pattern)) {
+                    $before = $serialized
+                    $serialized = [regex]::Replace($serialized, $pattern, $replace)
+                    if ($before -ne $serialized) {
+                        Write-Host "applied sanitize rule: $($replacement.description)"
+                    }
+                }
+            }
+        }
+        $serialized | Set-Content -LiteralPath $targetJson -Encoding UTF8
         Write-Host "sanitized $sourceJson -> $targetJson"
     }
 }

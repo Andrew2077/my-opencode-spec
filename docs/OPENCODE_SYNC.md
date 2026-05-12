@@ -15,7 +15,7 @@ powershell -ExecutionPolicy Bypass -File scripts/validate.ps1
 Default source is `$HOME\.opencode`. Override it when needed:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/fetch-from-device.ps1 -Source "C:\Users\Andrew\.opencode" -IncludeConfig
+powershell -ExecutionPolicy Bypass -File scripts/fetch-from-device.ps1 -Source "$HOME\.opencode" -IncludeConfig
 ```
 
 ## Install onto a device

@@ -5,7 +5,7 @@ Use this document when an LLM or coding agent is asked to update this repo with 
 ## Prerequisites
 
 - Node.js 20.19.0+ installed
-- This repo cloned at `$REPO` (e.g. `C:\Users\Andrew\Desktop\my-opencode-spec`)
+- This repo cloned at `$REPO` (e.g. `~/Desktop/my-opencode-spec` or `$HOME\Desktop\my-opencode-spec`)
 - Live OpenCode config at `$HOME/.opencode/`
 
 ## Step 1: Check current versions

@@ -35,7 +35,29 @@
         "secret",
         "password"
       ],
-      "redaction": "__SET_IN_LOCAL_ENV_OR_CONFIG__"
+      "redaction": "__SET_IN_LOCAL_ENV_OR_CONFIG__",
+      "stringReplacements": [
+        {
+          "description": "Redact maintainer Windows username from absolute paths",
+          "pattern": "[A-Z]:/Users/[^/\"\\\\]+/",
+          "replacement": "__SET_IN_LOCAL_ENV_OR_CONFIG__/"
+        },
+        {
+          "description": "Redact maintainer Windows username from backslash paths",
+          "pattern": "[A-Z]:\\\\\\\\Users\\\\\\\\[^\\\\\\\\\"]+\\\\\\\\",
+          "replacement": "__SET_IN_LOCAL_ENV_OR_CONFIG__\\\\"
+        },
+        {
+          "description": "Redact maintainer Unix home path",
+          "pattern": "/home/[^/\"\\s]+/",
+          "replacement": "__SET_IN_LOCAL_ENV_OR_CONFIG__/"
+        },
+        {
+          "description": "Redact private proxy hostname",
+          "pattern": "https?://ai\\.privatemail\\.site",
+          "replacement": "https://your-proxy.example.com"
+        }
+      ]
     }
   ],
   "exclude": [
