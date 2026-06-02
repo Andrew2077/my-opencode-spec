@@ -1,0 +1,137 @@
+diff --git a/bin/cli.ts b/bin/cli.ts
+index ff3508a..f548218 100644
+--- a/bin/cli.ts
++++ b/bin/cli.ts
+@@ -40,0 +41,34 @@ const PROVIDER_IDS = PROVIDERS.map((provider) => provider.id);
++function loadCliProxyApiFromOpenCodeConfig(): void {
++  if (process.env.CLIPROXYAPI_API_KEY && process.env.CLIPROXYAPI_BASE_URL) return;
++
++  const home = process.env.USERPROFILE || process.env.HOME;
++  if (!home) return;
++
++  const configPath = path.join(home, '.opencode', 'opencode.json');
++  if (!existsSync(configPath)) return;
++
++  try {
++    const parsed = JSON.parse(readFileSync(configPath, 'utf8')) as {
++      provider?: {
++        cliproxyapi?: {
++          options?: {
++            apiKey?: string;
++            baseURL?: string;
++          };
++        };
++      };
++    };
++    const options = parsed.provider?.cliproxyapi?.options;
++    if (!process.env.CLIPROXYAPI_API_KEY && options?.apiKey) {
++      process.env.CLIPROXYAPI_API_KEY = options.apiKey;
++    }
++    if (!process.env.CLIPROXYAPI_BASE_URL && options?.baseURL) {
++      process.env.CLIPROXYAPI_BASE_URL = options.baseURL;
++    }
++  } catch {
++    // Ignore missing or malformed optional OpenCode config.
++  }
++}
++
++loadCliProxyApiFromOpenCodeConfig();
++
+@@ -57,0 +92,2 @@ const API_KEY_ENV: Record<ModelProvider, string> = {
++  'cpa-gpt-55': 'CLIPROXYAPI_API_KEY',
++  'cpa-gemini-35-flash': 'CLIPROXYAPI_API_KEY',
+diff --git a/lib/providers.ts b/lib/providers.ts
+index c64dfae..62edd22 100644
+--- a/lib/providers.ts
++++ b/lib/providers.ts
+@@ -285,0 +286,24 @@ export const PROVIDERS: Provider[] = [
++  {
++    id: 'cpa-gpt-55',
++    name: 'CPA GPT-5.5',
++    description: 'CLIProxyAPI private OpenAI-compatible gateway using GPT-5.5.',
++    free: false,
++    apiUrl: 'Set CLIPROXYAPI_BASE_URL to your CLIProxyAPI /v1 endpoint',
++    getApiKeyUrl: 'Private CLIProxyAPI configuration',
++    docsUrl: 'Private CLIProxyAPI configuration',
++    defaultModel: 'gpt-5.5',
++    models: ['gpt-5.5'],
++    placeholder: 'cpa_...',
++  },
++  {
++    id: 'cpa-gemini-35-flash',
++    name: 'CPA Gemini 3.5 Flash',
++    description: 'CLIProxyAPI private OpenAI-compatible gateway using Gemini 3.5 Flash.',
++    free: false,
++    apiUrl: 'Set CLIPROXYAPI_BASE_URL to your CLIProxyAPI /v1 endpoint',
++    getApiKeyUrl: 'Private CLIProxyAPI configuration',
++    docsUrl: 'Private CLIProxyAPI configuration',
++    defaultModel: 'gemini-3.5-flash',
++    models: ['gemini-3.5-flash'],
++    placeholder: 'cpa_...',
++  },
+@@ -535,0 +560,1 @@ export function getAvailableProvider(keys: Record<string, string | undefined>):
++    'cpa-gpt-55', 'cpa-gemini-35-flash',
+@@ -562,0 +588,16 @@ export function getProviderDisplayName(provider: ModelProvider): string {
++function getRuntimeEnv(name: string): string | undefined {
++  const maybeProcess = (globalThis as typeof globalThis & { process?: { env?: Record<string, string | undefined> } }).process;
++  return maybeProcess?.env?.[name];
++}
++
++function getCliProxyApiChatCompletionsUrl(): string {
++  const configured = getRuntimeEnv('CLIPROXYAPI_CHAT_COMPLETIONS_URL') || getRuntimeEnv('CLIPROXYAPI_BASE_URL');
++  if (!configured) {
++    throw new Error('Missing CLIProxyAPI base URL. Set CLIPROXYAPI_BASE_URL to your CPA /v1 endpoint.');
++  }
++
++  const trimmed = configured.replace(/\/+$/, '');
++  if (trimmed.endsWith('/chat/completions')) return trimmed;
++  return `${trimmed}/chat/completions`;
++}
++
+@@ -1061,0 +1107,7 @@ export async function generateWithProvider(
++    case 'cpa-gpt-55':
++    case 'cpa-gemini-35-flash':
++      return openAICompatibleGenerate(
++        getCliProxyApiChatCompletionsUrl(),
++        apiKey, systemPrompt, fullUserPrompt, model, options
++      );
++
+diff --git a/lib/server/cli-providers.ts b/lib/server/cli-providers.ts
+index 5e540c2..cd05ec9 100644
+--- a/lib/server/cli-providers.ts
++++ b/lib/server/cli-providers.ts
+@@ -70,0 +71,8 @@ function combinePrompts(systemPrompt: string, userPrompt: string): string {
++function resolveSpawnCommand(bin: string, args: string[]): { command: string; args: string[] } {
++  const ext = path.extname(bin).toLowerCase();
++  if (ext === '.js' || ext === '.mjs' || ext === '.cjs') {
++    return { command: process.execPath, args: [bin, ...args] };
++  }
++  return { command: bin, args };
++}
++
+@@ -92,1 +100,2 @@ async function runCli(
+-      const child = spawn(config.bin, prepared.args, spawnOptions);
++      const command = resolveSpawnCommand(config.bin, prepared.args);
++      const child = spawn(command.command, command.args, spawnOptions);
+diff --git a/lib/types.ts b/lib/types.ts
+index f77fb39..8b8d2b8 100644
+--- a/lib/types.ts
++++ b/lib/types.ts
+@@ -12,0 +13,1 @@ export type ModelProvider =
++  | 'cpa-gpt-55' | 'cpa-gemini-35-flash'
+diff --git a/lib/validation.ts b/lib/validation.ts
+index d6eb387..9bebd71 100644
+--- a/lib/validation.ts
++++ b/lib/validation.ts
+@@ -20,0 +21,1 @@ export function validateModel(model: unknown): string | null {
++    'cpa-gpt-55', 'cpa-gemini-35-flash',
+diff --git a/scripts/tests/fixtures/fake-cli-runner.mjs b/scripts/tests/fixtures/fake-cli-runner.mjs
+index b5b4d28..a15131d 100755
+--- a/scripts/tests/fixtures/fake-cli-runner.mjs
++++ b/scripts/tests/fixtures/fake-cli-runner.mjs
+@@ -33,0 +34,5 @@ function classifyStdin() {
++    // Windows reports child_process.spawn stdio pipes as neither FIFO nor
++    // socket. For this fixture, a non-TTY fd 0 on win32 means prompt data can
++    // flow in, which is the semantic these tests assert.
++    if (process.platform === "win32" && !process.stdin.isTTY) return "pipe";
++

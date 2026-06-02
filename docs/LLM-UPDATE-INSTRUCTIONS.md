@@ -38,6 +38,8 @@ npm --prefix "$HOME/tools/StealthHumanizer" ci
 npm --prefix "$HOME/tools/StealthHumanizer" run cli:build
 ```
 
+This setup applies `patches/stealthhumanizer-cpa.patch` after cloning/updating StealthHumanizer. The patch adds CPA providers `cpa-gpt-55` (`gpt-5.5`) and `cpa-gemini-35-flash` (`gemini-3.5-flash`) and lets the CLI read `provider.cliproxyapi.options` from `$HOME/.opencode/opencode.json` without duplicating secrets.
+
 ## Step 3: Re-run GSD installer (fetches latest commands/agents/skills)
 
 ```bash

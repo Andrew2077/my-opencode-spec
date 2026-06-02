@@ -277,6 +277,8 @@ npm --prefix "$HOME\tools\StealthHumanizer" run cli:build
 npm --prefix "$HOME\tools\StealthHumanizer" run cli -- providers
 ```
 
+The repo update script applies `patches/stealthhumanizer-cpa.patch` to the local clone. That patch adds `cpa-gpt-55` (`gpt-5.5`) and `cpa-gemini-35-flash` (`gemini-3.5-flash`) providers and auto-loads CLIProxyAPI config from local OpenCode config without committing secrets.
+
 Use the agent for clarity, style, grammar, readability, and diagnostic detector-style scoring. Do not use it to hide AI authorship, bypass institutional detectors, or remove required provenance/citations.
 
 ## GSD Orchestrator

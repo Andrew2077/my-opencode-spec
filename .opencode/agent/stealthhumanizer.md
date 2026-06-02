@@ -30,6 +30,7 @@ Verified CLI facts:
 - CLI commands: `humanize`, `detect`, `providers`.
 - Local command pattern from clone root: `npm run cli -- <command> ...`.
 - Built/linked binaries, when available: `stealthhumanizer` and `stealth-humanize`.
+- Preferred CPA providers are available when local OpenCode config has `provider.cliproxyapi.options`: `cpa-gpt-55` (default `gpt-5.5`) and `cpa-gemini-35-flash` (default `gemini-3.5-flash`).
 
 ## Ethical Boundary
 
@@ -73,12 +74,17 @@ From clone root:
 ```powershell
 npm run cli -- providers
 npm run cli -- detect --text "Draft text" --report
+npm run cli -- humanize --model cpa-gpt-55 --text "Draft text" --level light
+npm run cli -- humanize --model cpa-gemini-35-flash --text "Draft text" --level light
 npm run cli -- humanize --input draft.txt --output revised.txt --style professional --level light
 ```
 
 Provider auth:
 - `detect` needs no provider key.
-- `humanize` needs a provider API key env var unless using CLI-runner providers.
+- Default to CPA GPT-5.5 for high-quality revisions when available: `--model cpa-gpt-55`.
+- Use CPA Gemini 3.5 Flash for faster/budget revisions: `--model cpa-gemini-35-flash`.
+- CPA providers auto-load `CLIPROXYAPI_API_KEY` and `CLIPROXYAPI_BASE_URL` from `$HOME/.opencode/opencode.json` when explicit env vars are not set.
+- Other `humanize` providers need a provider API key env var unless using CLI-runner providers.
 - Never print API keys. Never read `.env` aloud. Prefer env vars already set in the shell.
 - CLI-runner providers: `--model claude-code` or `--model codex`; use only when user understands local CLI auth is used.
 
@@ -96,6 +102,7 @@ Provider auth:
 - Preserve factual claims, numbers, citations, quoted text, and code exactly unless user asks to change them.
 - Keep domain terms intact.
 - Prefer `--level light` or `--level medium` for professional or academic text.
+- Prefer `--model cpa-gpt-55`; fall back to `--model cpa-gemini-35-flash` for speed/cost.
 - Use `--style academic`, `professional`, `technical`, `casual`, `creative`, or `humanize` based on user goal.
 - State when a provider key or local clone is missing, with exact next command.
 

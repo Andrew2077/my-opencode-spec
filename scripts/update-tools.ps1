@@ -42,6 +42,7 @@ $ErrorActionPreference = "Stop"
 $RepoRoot = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")
 $LiveRoot = Join-Path $env:USERPROFILE ".opencode"
 $StealthHumanizerRoot = Join-Path $env:USERPROFILE "tools\StealthHumanizer"
+$StealthHumanizerPatch = Join-Path $RepoRoot "patches\stealthhumanizer-cpa.patch"
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -188,10 +189,16 @@ if ($SkipNpm) {
     Write-Step "2b" "Checking StealthHumanizer local clone"
     if ($DryRun) {
         if (Test-Path -LiteralPath (Join-Path $StealthHumanizerRoot ".git")) {
-            Write-Host "    DRY RUN: would run: git -C $StealthHumanizerRoot pull --ff-only" -ForegroundColor Magenta
+            $stealthStatus = & git -C $StealthHumanizerRoot status --porcelain 2>$null
+            if ($stealthStatus) {
+                Write-Host "    DRY RUN: would reverse CPA patch if already applied, pull, then reapply patch" -ForegroundColor Magenta
+            } else {
+                Write-Host "    DRY RUN: would run: git -C $StealthHumanizerRoot pull --ff-only" -ForegroundColor Magenta
+            }
         } else {
             Write-Host "    DRY RUN: would clone https://github.com/rudra496/StealthHumanizer -> $StealthHumanizerRoot" -ForegroundColor Magenta
         }
+        Write-Host "    DRY RUN: would apply CPA patch from $StealthHumanizerPatch when needed" -ForegroundColor Magenta
         Write-Host "    DRY RUN: would run: npm --prefix $StealthHumanizerRoot ci" -ForegroundColor Magenta
         Write-Host "    DRY RUN: would run: npm --prefix $StealthHumanizerRoot run cli:build" -ForegroundColor Magenta
     } else {
@@ -201,11 +208,45 @@ if ($SkipNpm) {
         }
 
         if (Test-Path -LiteralPath (Join-Path $StealthHumanizerRoot ".git")) {
-            & git -C $StealthHumanizerRoot pull --ff-only
-            Write-Ok "StealthHumanizer clone updated"
+            $stealthStatus = & git -C $StealthHumanizerRoot status --porcelain 2>$null
+            if ($stealthStatus) {
+                if (Test-Path -LiteralPath $StealthHumanizerPatch) {
+                    & git -C $StealthHumanizerRoot apply --unidiff-zero --reverse --check $StealthHumanizerPatch 2>$null
+                    if ($LASTEXITCODE -eq 0) {
+                        & git -C $StealthHumanizerRoot apply --unidiff-zero --reverse $StealthHumanizerPatch
+                        Write-Ok "Temporarily reversed StealthHumanizer CPA patch before pull"
+                        & git -C $StealthHumanizerRoot pull --ff-only
+                        Write-Ok "StealthHumanizer clone updated"
+                    } else {
+                        Write-Warn "StealthHumanizer clone has unrelated local changes; skipping pull"
+                    }
+                } else {
+                    Write-Warn "StealthHumanizer clone has local changes and patch is missing; skipping pull"
+                }
+            } else {
+                & git -C $StealthHumanizerRoot pull --ff-only
+                Write-Ok "StealthHumanizer clone updated"
+            }
         } else {
             & git clone https://github.com/rudra496/StealthHumanizer $StealthHumanizerRoot
             Write-Ok "StealthHumanizer cloned"
+        }
+
+        if (Test-Path -LiteralPath $StealthHumanizerPatch) {
+            & git -C $StealthHumanizerRoot apply --unidiff-zero --check $StealthHumanizerPatch 2>$null
+            if ($LASTEXITCODE -eq 0) {
+                & git -C $StealthHumanizerRoot apply --unidiff-zero $StealthHumanizerPatch
+                Write-Ok "Applied StealthHumanizer CPA patch"
+            } else {
+                & git -C $StealthHumanizerRoot apply --unidiff-zero --reverse --check $StealthHumanizerPatch 2>$null
+                if ($LASTEXITCODE -eq 0) {
+                    Write-Ok "StealthHumanizer CPA patch already applied"
+                } else {
+                    Write-Warn "StealthHumanizer CPA patch did not apply cleanly; inspect $StealthHumanizerPatch"
+                }
+            }
+        } else {
+            Write-Warn "StealthHumanizer CPA patch not found at $StealthHumanizerPatch"
         }
 
         & npm --prefix $StealthHumanizerRoot ci
