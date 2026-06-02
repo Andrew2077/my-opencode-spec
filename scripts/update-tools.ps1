@@ -4,7 +4,7 @@
 
 .DESCRIPTION
   Updates GSD (get-shit-done-cc), OpenSpec (@fission-ai/openspec), SocratiCode,
-  and OpenCode itself. Also refreshes the repo's .opencode/ assets from the
+  StealthHumanizer, and OpenCode itself. Also refreshes the repo's .opencode/ assets from the
   live installation and runs validation.
 
   This script is idempotent and safe to run repeatedly.
@@ -41,6 +41,7 @@ $ErrorActionPreference = "Stop"
 
 $RepoRoot = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")
 $LiveRoot = Join-Path $env:USERPROFILE ".opencode"
+$StealthHumanizerRoot = Join-Path $env:USERPROFILE "tools\StealthHumanizer"
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -99,6 +100,12 @@ $Tools = @(
         Package = "socraticode"
         UpdateCmd = $null  # MCP server, auto-updates via npx -y
         IsNpx = $true
+    },
+    @{
+        Name = "StealthHumanizer"
+        Package = "github:rudra496/StealthHumanizer"
+        UpdateCmd = $null  # GitHub clone, updated below
+        IsNpx = $true
     }
 )
 
@@ -138,13 +145,13 @@ if ($SkipNpm) {
             if ($latest) {
                 Write-Ok "$name latest: $latest (runs via npx, not globally installed)"
             } else {
-                Write-Warn "$name: could not check registry version"
+                Write-Warn "${name}: could not check registry version"
             }
             continue
         }
 
         if (-not $current) {
-            Write-Warn "$name: not installed globally"
+            Write-Warn "${name}: not installed globally"
             if ($DryRun) {
                 Write-Host "    DRY RUN: would run: $($tool.UpdateCmd)" -ForegroundColor Magenta
             } elseif ($tool.UpdateCmd) {
@@ -176,6 +183,34 @@ if ($SkipNpm) {
         Write-Ok "OpenCode $opencodeVersion"
     } else {
         Write-Warn "OpenCode not found in PATH (install manually if needed)"
+    }
+
+    Write-Step "2b" "Checking StealthHumanizer local clone"
+    if ($DryRun) {
+        if (Test-Path -LiteralPath (Join-Path $StealthHumanizerRoot ".git")) {
+            Write-Host "    DRY RUN: would run: git -C $StealthHumanizerRoot pull --ff-only" -ForegroundColor Magenta
+        } else {
+            Write-Host "    DRY RUN: would clone https://github.com/rudra496/StealthHumanizer -> $StealthHumanizerRoot" -ForegroundColor Magenta
+        }
+        Write-Host "    DRY RUN: would run: npm --prefix $StealthHumanizerRoot ci" -ForegroundColor Magenta
+        Write-Host "    DRY RUN: would run: npm --prefix $StealthHumanizerRoot run cli:build" -ForegroundColor Magenta
+    } else {
+        $stealthParent = Split-Path -Parent $StealthHumanizerRoot
+        if (-not (Test-Path -LiteralPath $stealthParent)) {
+            New-Item -ItemType Directory -Path $stealthParent -Force | Out-Null
+        }
+
+        if (Test-Path -LiteralPath (Join-Path $StealthHumanizerRoot ".git")) {
+            & git -C $StealthHumanizerRoot pull --ff-only
+            Write-Ok "StealthHumanizer clone updated"
+        } else {
+            & git clone https://github.com/rudra496/StealthHumanizer $StealthHumanizerRoot
+            Write-Ok "StealthHumanizer cloned"
+        }
+
+        & npm --prefix $StealthHumanizerRoot ci
+        & npm --prefix $StealthHumanizerRoot run cli:build
+        Write-Ok "StealthHumanizer CLI built"
     }
 }
 

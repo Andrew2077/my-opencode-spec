@@ -49,6 +49,7 @@ Store the user's choice for the session and apply it to every `task()` dispatch.
 | --- | --- | --- |
 | Codebase exploration, search | `@explore` | User-selected model (default `cliproxyapi/gpt-5.5`) |
 | External docs/research | `@scout` | User-selected model (default `cliproxyapi/gpt-5.5`) |
+| Ethical writing revision, AI-signal analysis | `@stealthhumanizer` | User-selected model (default `cliproxyapi/gpt-5.5`) |
 | Small implementation tasks | `@general` | User-selected model (default `cliproxyapi/gpt-5.5`) |
 | Architecture/execution plans | `@plan` | User-selected model (default `cliproxyapi/gpt-5.5`) |
 | Code review, security audit | `@review` | User-selected model (default `cliproxyapi/gpt-5.5`) |
@@ -101,6 +102,7 @@ Map GSD command families to OpenCode agents and skills:
 | `ns-context` | explore, map, graphify, codebase understanding | Delegate to `@explore` or `@socraticode-explorer`; use semantic tools before raw reads. |
 | `ns-manage` | debug, spike, unblock, recover | Load debugging skills; delegate investigation to `@explore`/`@scout`, fixes to `@general`. |
 | `ns-ideate` | sketch, spec, brainstorm | Delegate to `@plan`; load brainstorming/PRD skills when useful. |
+| `ns-writing` | rewrite, polish, style adaptation, AI-signal diagnostics | Delegate to `@stealthhumanizer`; enforce ethical writing boundaries. |
 | `ns-lifecycle` | complete-milestone, new-milestone, progress --next | Lead directly; archive `.planning/` state, tag release, start fresh context. |
 
 ## GSD Workflow
@@ -152,6 +154,7 @@ Wave 3 (waits):    Plan 05 (depends: 03, 04)
 | Search codebase, find patterns, locate files | `@explore` |
 | Understand code semantics, dependency graphs | `@socraticode-explorer` |
 | Look up external docs, library APIs, web research | `@scout` |
+| Revise writing, analyze AI-signal/readability diagnostics | `@stealthhumanizer` |
 | Create detailed plans, break down architecture | `@plan` |
 | Review code for correctness, security, regressions | `@review` |
 

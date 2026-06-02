@@ -1,6 +1,6 @@
 # LLM Instructions: Fetch Upstream Updates & Sync
 
-Use this document when an LLM or coding agent is asked to update this repo with the latest GSD, OpenSpec, and SocratiCode changes.
+Use this document when an LLM or coding agent is asked to update this repo with the latest GSD, OpenSpec, SocratiCode, and StealthHumanizer changes.
 
 ## Prerequisites
 
@@ -14,6 +14,7 @@ Use this document when an LLM or coding agent is asked to update this repo with 
 npx get-shit-done-cc@latest --help 2>&1 | head -5
 npx @fission-ai/openspec@latest --version
 npm view socraticode version
+npm view github:rudra496/StealthHumanizer version
 ```
 
 Record old → new version changes.
@@ -24,7 +25,18 @@ Record old → new version changes.
 npm install -g @fission-ai/openspec@latest
 ```
 
-GSD and SocratiCode are npx-invoked (no global install needed).
+GSD and SocratiCode are npx-invoked (no global install needed). StealthHumanizer is installed from its GitHub repo into `$HOME/tools/StealthHumanizer` because it is not published on npm.
+
+```bash
+mkdir -p "$HOME/tools"
+if [ ! -d "$HOME/tools/StealthHumanizer/.git" ]; then
+  git clone https://github.com/rudra496/StealthHumanizer "$HOME/tools/StealthHumanizer"
+else
+  git -C "$HOME/tools/StealthHumanizer" pull --ff-only
+fi
+npm --prefix "$HOME/tools/StealthHumanizer" ci
+npm --prefix "$HOME/tools/StealthHumanizer" run cli:build
+```
 
 ## Step 3: Re-run GSD installer (fetches latest commands/agents/skills)
 
@@ -34,7 +46,7 @@ npx get-shit-done-cc@latest --opencode --global --non-interactive
 
 This installs/updates GSD skills, commands, and agent files into `$HOME/.opencode/`.
 
-**Important:** This may overwrite or add files in `$HOME/.opencode/command/` and `$HOME/.opencode/skill/`. It does NOT touch custom agents (`gsd.md`, `openspec-engineer.md`) or `opencode.json`.
+**Important:** This may overwrite or add files in `$HOME/.opencode/command/` and `$HOME/.opencode/skill/`. It does NOT touch custom agents (`gsd.md`, `openspec-engineer.md`, `socraticode-explorer.md`, `stealthhumanizer.md`) or `opencode.json`.
 
 ## Step 4: Update OpenSpec generated assets
 
@@ -103,12 +115,13 @@ NODE
 
 ## Step 6: Preserve custom agents
 
-**CRITICAL:** The GSD installer may create its own `gsd-*.md` agent files. Our custom agents (`gsd.md`, `openspec-engineer.md`, `socraticode-explorer.md`) must NOT be overwritten.
+**CRITICAL:** The GSD installer may create its own `gsd-*.md` agent files. Our custom agents (`gsd.md`, `openspec-engineer.md`, `socraticode-explorer.md`, `stealthhumanizer.md`) must NOT be overwritten.
 
 After sync, verify these files are intact:
 - `.opencode/agent/gsd.md` — our custom GSD orchestrator (not the upstream gsd-* agents)
 - `.opencode/agent/openspec-engineer.md` — our custom OpenSpec agent
 - `.opencode/agent/socraticode-explorer.md` — our SocratiCode agent
+- `.opencode/agent/stealthhumanizer.md` — our StealthHumanizer writing-revision agent
 
 If the GSD installer added `gsd-*` prefixed agent files, those are upstream GSD subagents. Keep them alongside our custom `gsd.md`.
 
@@ -143,7 +156,7 @@ Only push after explicit user approval.
 ## Safety rules
 
 1. **Never commit real secrets** — `opencode.json`, `.env` files stay untracked.
-2. **Never overwrite custom agents** — `gsd.md`, `openspec-engineer.md`, `socraticode-explorer.md` are hand-maintained.
+2. **Never overwrite custom agents** — `gsd.md`, `openspec-engineer.md`, `socraticode-explorer.md`, `stealthhumanizer.md` are hand-maintained.
 3. **Always validate before commit** — run `validate.ps1` or equivalent.
 4. **Preserve `sync-manifest.json` rules** — it defines what syncs and what doesn't.
 5. **Report version changes** — state old → new version for each tool updated.

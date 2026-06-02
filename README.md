@@ -165,6 +165,39 @@ console.log('socraticode config merged');
 NODE
 ```
 
+If StealthHumanizer support is needed, install the local clone and merge only the agent key into the existing real config:
+
+```bash
+set -eu
+mkdir -p "$HOME/tools"
+if [ ! -d "$HOME/tools/StealthHumanizer/.git" ]; then
+  git clone https://github.com/rudra496/StealthHumanizer "$HOME/tools/StealthHumanizer"
+fi
+npm --prefix "$HOME/tools/StealthHumanizer" ci
+npm --prefix "$HOME/tools/StealthHumanizer" run cli:build
+
+node <<'NODE'
+const fs = require('fs');
+const path = `${process.env.HOME}/.opencode/opencode.json`;
+const stamp = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14);
+let config = {};
+
+if (fs.existsSync(path)) {
+  fs.copyFileSync(path, `${path}.pre-stealthhumanizer-${stamp}.bak`);
+  config = JSON.parse(fs.readFileSync(path, 'utf8'));
+}
+
+config.agent = config.agent || {};
+config.agent.stealthhumanizer = {
+  model: 'cliproxyapi/gpt-5.5',
+  mode: 'all',
+};
+
+fs.writeFileSync(path, `${JSON.stringify(config, null, 2)}\n`, { mode: 0o600 });
+console.log('stealthhumanizer config merged');
+NODE
+```
+
 ### OpenSpec install flow
 
 Install OpenSpec only when Node.js is `20.19.0` or newer:
@@ -187,6 +220,8 @@ openspec --version
 node -e "const c=require(process.env.HOME + '/.opencode/opencode.json'); if ((c.mcp?.socraticode?.command || []).join(' ') !== 'npx -y socraticode') process.exit(1); if (!c.agent?.['socraticode-explorer']) process.exit(2); console.log('socraticode config ok')"
 test -f "$HOME/.opencode/agent/socraticode-explorer.md"
 npm view socraticode version engines --json
+npm --prefix "$HOME/tools/StealthHumanizer" run cli -- providers
+test -f "$HOME/.opencode/agent/stealthhumanizer.md"
 ```
 
 For this repo before committing:
@@ -229,6 +264,21 @@ See [`docs/OPENSPEC.md`](docs/OPENSPEC.md) for installing OpenSpec and using it 
 
 This setup also includes an `openspec-engineer` agent for spec-first API review. Use it when you need contract validation, OpenSpec artifact checks, or implementation/spec drift review. It uses the OpenSpec CLI and generated project assets; OpenSpec is installed per machine/project with `npm install -g @fission-ai/openspec@latest` and `openspec init --tools opencode`.
 
+## StealthHumanizer
+
+This setup includes a `stealthhumanizer` agent for ethical writing revision and AI-signal analysis using the StealthHumanizer CLI.
+
+StealthHumanizer is installed from GitHub because the `stealthhumanizer` package is not published on npm:
+
+```powershell
+git clone https://github.com/rudra496/StealthHumanizer "$HOME\tools\StealthHumanizer"
+npm --prefix "$HOME\tools\StealthHumanizer" ci
+npm --prefix "$HOME\tools\StealthHumanizer" run cli:build
+npm --prefix "$HOME\tools\StealthHumanizer" run cli -- providers
+```
+
+Use the agent for clarity, style, grammar, readability, and diagnostic detector-style scoring. Do not use it to hide AI authorship, bypass institutional detectors, or remove required provenance/citations.
+
 ## GSD Orchestrator
 
 This setup includes a unified `gsd` agent that ports GSD (Get Shit Done) orchestration into OpenCode without installing the full 86+ slash-command pack.
@@ -247,7 +297,7 @@ Supported GSD-style controls:
 | Granularity | `standard`, `detailed`, `minimal` | Controls plan/delegation detail. |
 | Model profile | `balanced`, `performance`, `efficient`, `max` | Routing hint for subagent model selection and delegation depth. |
 
-The agent is a meta-orchestrator: it applies GSD methodology and delegates to existing OpenCode agents (`plan`, `build`, `review`, `explore`, `scout`, `socraticode-explorer`) instead of duplicating the full GSD command tree.
+The agent is a meta-orchestrator: it applies GSD methodology and delegates to existing OpenCode agents (`plan`, `build`, `review`, `explore`, `scout`, `socraticode-explorer`, `stealthhumanizer`) instead of duplicating the full GSD command tree.
 
 ### Subagent Model Selection (Quota Protection)
 
@@ -261,7 +311,7 @@ The `compaction` agent also uses `cliproxyapi/gpt-5.5` to avoid burning expensiv
 
 ## Update Tools
 
-Run the update script to fetch the latest versions of GSD, OpenSpec, SocratiCode, and sync updated assets into this repo:
+Run the update script to fetch the latest versions of GSD, OpenSpec, SocratiCode, StealthHumanizer, and sync updated assets into this repo:
 
 ```powershell
 # Dry run first

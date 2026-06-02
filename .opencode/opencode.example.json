@@ -4,6 +4,10 @@
     "socraticode-explorer": {
       "model": "cliproxyapi/gpt-5.5",
       "mode": "all"
+    },
+    "stealthhumanizer": {
+      "model": "cliproxyapi/gpt-5.5",
+      "mode": "all"
     }
   },
   "mcp": {
