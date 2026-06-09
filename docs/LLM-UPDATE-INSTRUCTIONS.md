@@ -40,7 +40,7 @@ npm --prefix "$HOME/tools/StealthHumanizer" run cli:build
 
 This setup applies `patches/stealthhumanizer-cpa.patch` after cloning/updating StealthHumanizer. The patch adds CPA providers `cpa-gpt-55` (`cx/gpt-5.5`) and `cpa-gemini-35-flash` (`ag/gemini-3.5-flash-low`) and lets the CLI read `provider.cliproxyapi.options` from `$HOME/.opencode/opencode.json` without duplicating secrets.
 
-For OpenCode agent defaults, prefer AG models from the live CLIProxyAPI `/v1/models` response. Never invent model IDs. Current default is `cliproxyapi/ag/gemini-3-flash-agent`; budget fallback is `cliproxyapi/ag/gemini-3.5-flash-low`.
+For OpenCode agent defaults, prefer AG models from the live `9router` `/v1/models` response. Never invent model IDs. Current default is `9router/ag/gemini-3-flash-agent`; budget fallback is `9router/ag/gemini-3.5-flash-low`. Preserve legacy `cliproxyapi` alongside `9router`; do not overwrite it.
 
 ## Step 3: Re-run GSD installer (fetches latest commands/agents/skills)
 
@@ -117,12 +117,12 @@ console.log('Sanitized config written to', dst);
 NODE
 ```
 
-When adding or refreshing CLIProxyAPI models, query `/v1/models` with local-only credentials first and use exact `data[].id` values:
+When adding or refreshing `9router` models, query `/v1/models` with local-only credentials first and use exact `data[].id` values:
 
 ```bash
 curl -s \
-  -H "Authorization: Bearer $CLIPROXYAPI_API_KEY" \
-  "$CLIPROXYAPI_BASE_URL/models"
+  -H "Authorization: Bearer $NINEROUTER_API_KEY" \
+  "$NINEROUTER_BASE_URL/models"
 ```
 
 Do not paste real endpoint URLs or keys into repo docs. Use placeholders such as `https://your-proxy.example.com/v1` and `__SET_IN_LOCAL_ENV_OR_CONFIG__`.
@@ -183,7 +183,7 @@ The `compaction` agent must always use the current AG default. After any sync, v
 
 ```json
 "compaction": {
-  "model": "cliproxyapi/ag/gemini-3-flash-agent",
+  "model": "9router/ag/gemini-3-flash-agent",
   "mode": "all"
 }
 ```

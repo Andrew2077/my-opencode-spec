@@ -30,7 +30,7 @@ Verified CLI facts:
 - CLI commands: `humanize`, `detect`, `providers`.
 - Local command pattern from clone root: `npm run cli -- <command> ...`.
 - Built/linked binaries, when available: `stealthhumanizer` and `stealth-humanize`.
-- Preferred CPA providers are available when local OpenCode config has `provider.cliproxyapi.options`: `cpa-gpt-55` (default `cx/gpt-5.5`) and `cpa-gemini-35-flash` (default `ag/gemini-3.5-flash-low`). OpenCode agents default to `cliproxyapi/ag/gemini-3-flash-agent`.
+- Preferred CPA providers are available when local OpenCode config has `provider.cliproxyapi.options`: `cpa-gpt-55` (default `cx/gpt-5.5`) and `cpa-gemini-35-flash` (default `ag/gemini-3.5-flash-low`). OpenCode agents default to `9router/ag/gemini-3-flash-agent`.
 
 ## Ethical Boundary
 

@@ -100,7 +100,7 @@ if (-not (Test-Path "$HOME\.opencode\opencode.json")) {
 
 The user must edit those local files with real provider keys. Do not invent keys.
 
-For CLIProxyAPI AG, fetch model IDs from the live OpenAI-compatible `/v1/models` endpoint before adding or refreshing config. Keep the real endpoint and key only in local config/env; commit only placeholders.
+For 9Router, fetch model IDs from the live OpenAI-compatible `/v1/models` endpoint before adding or refreshing config. Keep the real endpoint and key only in local config/env; commit only placeholders.
 
 ### Linux or VPS install flow
 
@@ -151,7 +151,7 @@ if (fs.existsSync(path)) {
 
 config.agent = config.agent || {};
 config.agent['socraticode-explorer'] = {
-  model: 'cliproxyapi/ag/gemini-3-flash-agent',
+  model: '9router/ag/gemini-3-flash-agent',
   mode: 'all',
 };
 
@@ -191,7 +191,7 @@ if (fs.existsSync(path)) {
 
 config.agent = config.agent || {};
 config.agent.stealthhumanizer = {
-  model: 'cliproxyapi/ag/gemini-3-flash-agent',
+  model: '9router/ag/gemini-3-flash-agent',
   mode: 'all',
 };
 
@@ -305,31 +305,31 @@ The agent is a meta-orchestrator: it applies GSD methodology and delegates to ex
 
 ### Subagent Model Selection (Quota Protection)
 
-Both the `gsd` and `openspec-engineer` agents default all subagents to `cliproxyapi/ag/gemini-3-flash-agent`:
+Both the `gsd` and `openspec-engineer` agents default all subagents to `9router/ag/gemini-3-flash-agent`:
 
 - In `interactive` mode, the agent asks which model to use **once** at session start.
-- In `auto`/`yolo` mode, it uses `cliproxyapi/ag/gemini-3-flash-agent` without asking.
+- In `auto`/`yolo` mode, it uses `9router/ag/gemini-3-flash-agent` without asking.
 - The main session model is only used for the lead orchestrator's own reasoning.
 
-The `compaction` agent also uses `cliproxyapi/ag/gemini-3-flash-agent` to avoid burning expensive quota during context compaction.
+The `compaction` agent also uses `9router/ag/gemini-3-flash-agent` to avoid burning expensive quota during context compaction.
 
-### CLIProxyAPI AG provider
+### 9Router provider
 
-This repo includes a sanitized OpenAI-compatible `cliproxyapi` provider template. Live config must use the real endpoint/key locally; repo config uses `__SET_IN_LOCAL_ENV_OR_CONFIG__` placeholders.
+This repo includes two sanitized OpenAI-compatible provider templates: legacy `cliproxyapi` and new `9router`. Live config must use real endpoints/keys locally; repo config uses `__SET_IN_LOCAL_ENV_OR_CONFIG__` placeholders.
 
 When refreshing provider models, query the live endpoint first and copy exact IDs from `data[].id`:
 
 ```powershell
-$env:CLIPROXYAPI_BASE_URL = "https://your-proxy.example.com/v1"
-$env:CLIPROXYAPI_API_KEY = "__SET_IN_LOCAL_ENV_OR_CONFIG__"
-curl.exe -s -H "Authorization: Bearer $env:CLIPROXYAPI_API_KEY" "$env:CLIPROXYAPI_BASE_URL/models"
+$env:NINEROUTER_BASE_URL = "https://your-proxy.example.com/v1"
+$env:NINEROUTER_API_KEY = "__SET_IN_LOCAL_ENV_OR_CONFIG__"
+curl.exe -s -H "Authorization: Bearer $env:NINEROUTER_API_KEY" "$env:NINEROUTER_BASE_URL/models"
 ```
 
 Current AG defaults from `/v1/models`:
 
-- Default: `cliproxyapi/ag/gemini-3-flash-agent`
-- Budget: `cliproxyapi/ag/gemini-3.5-flash-low`
-- Higher-quality option: `cliproxyapi/ag/claude-sonnet-4-6`
+- Default: `9router/ag/gemini-3-flash-agent`
+- Budget: `9router/ag/gemini-3.5-flash-low`
+- Higher-quality option: `9router/ag/claude-sonnet-4-6`
 
 ## Update Tools
 

@@ -1,57 +1,958 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "cliproxyapi/ag/gemini-3-flash-agent",
-  "small_model": "cliproxyapi/ag/gemini-3.5-flash-low",
+  "model": "9router/ag/gemini-3-flash-agent",
+  "small_model": "9router/ag/gemini-3.5-flash-low",
   "agent": {
     "build": {
-      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "model": "9router/ag/gemini-3-flash-agent",
       "mode": "all"
     },
     "plan": {
-      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "model": "9router/ag/gemini-3-flash-agent",
       "mode": "all"
     },
     "general": {
-      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "model": "9router/ag/gemini-3-flash-agent",
       "mode": "all"
     },
     "explore": {
-      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "model": "9router/ag/gemini-3-flash-agent",
       "mode": "all"
     },
     "review": {
-      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "model": "9router/ag/gemini-3-flash-agent",
       "mode": "all"
     },
     "scout": {
-      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "model": "9router/ag/gemini-3-flash-agent",
       "mode": "all"
     },
     "socraticode-explorer": {
-      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "model": "9router/ag/gemini-3-flash-agent",
       "mode": "all"
     },
     "stealthhumanizer": {
-      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "model": "9router/ag/gemini-3-flash-agent",
       "mode": "all"
     },
     "openspec-engineer": {
-      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "model": "9router/ag/gemini-3-flash-agent",
       "mode": "all"
     },
     "gsd": {
-      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "model": "9router/ag/gemini-3-flash-agent",
       "mode": "all"
     },
     "compaction": {
-      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "model": "9router/ag/gemini-3-flash-agent",
       "mode": "all"
     }
   },
   "provider": {
     "cliproxyapi": {
+      "models": {
+        "claude-opus-4-6-thinking": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Opus 4.6 Thinking",
+          "reasoning": true
+        },
+        "claude-sonnet-4-6": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Sonnet 4.6"
+        },
+        "gemini-2.5-flash": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 2.5 Flash",
+          "reasoning": true
+        },
+        "gemini-2.5-flash-lite": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 2.5 Flash Lite"
+        },
+        "gemini-2.5-pro": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 2.5 Pro",
+          "reasoning": true
+        },
+        "gemini-3-flash-preview": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Flash Preview",
+          "reasoning": true
+        },
+        "gemini-3-pro-low": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Pro Low",
+          "reasoning": true
+        },
+        "gemini-3-pro-preview": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Pro Preview",
+          "reasoning": true
+        },
+        "gemini-3.1-flash-image": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "name": "Gemini 3.1 Flash Image"
+        },
+        "gemini-3.1-flash-lite": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3.1 Flash Lite"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3.1 Flash Lite Preview",
+          "reasoning": true
+        },
+        "gemini-3.1-pro-high": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3.1 Pro High",
+          "reasoning": true
+        },
+        "gemini-3.1-pro-low": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3.1 Pro Low",
+          "reasoning": true
+        },
+        "gemini-3.1-pro-preview": {
+          "limit": {
+            "context": 1000000,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3.1 Pro Preview",
+          "reasoning": true
+        },
+        "glm-4.6": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GLM 4.6",
+          "reasoning": true
+        },
+        "glm-4.7": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GLM 4.7",
+          "reasoning": true
+        },
+        "glm-4.5": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GLM 4.5",
+          "reasoning": true
+        },
+        "glm-4.5-air": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GLM 4.5 Air",
+          "reasoning": true
+        },
+        "glm-5": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GLM 5",
+          "reasoning": true
+        },
+        "glm-5.1": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GLM 5.1",
+          "reasoning": true
+        },
+        "glm-5-turbo": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GLM 5 Turbo",
+          "reasoning": true
+        },
+        "gpt-5.2": {
+          "limit": {
+            "context": 400000,
+            "output": 32768
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GPT 5.2",
+          "reasoning": true
+        },
+        "gpt-5.3-codex": {
+          "limit": {
+            "context": 400000,
+            "output": 32768
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GPT 5.3 Codex",
+          "reasoning": true
+        },
+        "gpt-5.4": {
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GPT 5.4",
+          "reasoning": true
+        },
+        "gpt-5.4-mini": {
+          "limit": {
+            "context": 400000,
+            "output": 32768
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GPT 5.4 Mini",
+          "reasoning": true
+        },
+        "gpt-5.5": {
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GPT 5.5",
+          "reasoning": true,
+          "disabled": false
+        },
+        "codex-auto-review": {
+          "limit": {
+            "context": 200000,
+            "output": 32768
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Codex Auto Review",
+          "reasoning": true,
+          "disabled": true
+        },
+        "gpt-oss-120b-medium": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "name": "GPT OSS 120b Medium"
+        },
+        "gpt-oss:20b": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "name": "GPT OSS 20b"
+        },
+        "glm-5.1(go)": {
+          "limit": {
+            "context": 204800,
+            "output": 131072
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GLM 5.1 (OpenCode Go)",
+          "reasoning": true
+        },
+        "glm-5(go)": {
+          "limit": {
+            "context": 204800,
+            "output": 131072
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "GLM 5 (OpenCode Go)",
+          "reasoning": true
+        },
+        "kimi-k2": {
+          "limit": {
+            "context": 131072,
+            "output": 8192
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Kimi K2",
+          "reasoning": true
+        },
+        "kimi-k2-thinking": {
+          "limit": {
+            "context": 131072,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Kimi K2 Thinking",
+          "reasoning": true
+        },
+        "kimi-k2.5": {
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "video"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Kimi K2.5",
+          "reasoning": true
+        },
+        "kimi-k2.6": {
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "video"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Kimi K2.6",
+          "reasoning": true
+        },
+        "kimi-k2.5(go)": {
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "video"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Kimi K2.5 (OpenCode Go)",
+          "reasoning": true
+        },
+        "kimi-k2.6(go)": {
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "video"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Kimi K2.6 (OpenCode Go)",
+          "reasoning": true
+        },
+        "mimo-v2-pro(go)": {
+          "limit": {
+            "context": 1048576,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "MiMo V2 Pro (OpenCode Go)",
+          "reasoning": true
+        },
+        "mimo-v2-omni(go)": {
+          "limit": {
+            "context": 262144,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "audio",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "MiMo V2 Omni (OpenCode Go)",
+          "reasoning": true
+        },
+        "minimax-m2.7(go)": {
+          "limit": {
+            "context": 204800,
+            "output": 131072
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "MiniMax M2.7 (OpenCode Go)",
+          "reasoning": true
+        },
+        "minimax-m2.5(go)": {
+          "limit": {
+            "context": 204800,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "MiniMax M2.5 (OpenCode Go)",
+          "reasoning": true
+        },
+        "qwen3.6-plus(go)": {
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "video"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Qwen3.6 Plus (OpenCode Go)",
+          "reasoning": true
+        },
+        "qwen3.5-plus(go)": {
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "video"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Qwen3.5 Plus (OpenCode Go)",
+          "reasoning": true
+        },
+        "sonnet-46": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Sonnet 4.6 (Cursor-safe)"
+        },
+        "opus-46": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Opus 4.6 Thinking (Cursor-safe)",
+          "reasoning": true
+        },
+        "DeepSeek: DeepSeek V4 Pro (Free)": {
+          "limit": {
+            "context": 128000,
+            "output": 8192
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "DeepSeek V4 Pro (Free)",
+          "reasoning": true
+        },
+        "DeepSeek: DeepSeek V4 Flash (Free)": {
+          "limit": {
+            "context": 128000,
+            "output": 8192
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "DeepSeek V4 Flash (Free)",
+          "reasoning": true
+        },
+        "Z.AI: GLM 4.7 Flash (Free)": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Z.AI GLM 4.7 Flash (Free)",
+          "reasoning": true
+        },
+        "Z.AI: GLM 4.6V Flash (Free)": {
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Z.AI GLM 4.6V Flash (Free)",
+          "reasoning": true
+        },
+        "gemini-2.5-flash-image": {
+          "name": "Gemini 2.5 Flash Image"
+        },
+        "gemini-3.1-flash-image-preview": {
+          "name": "Gemini 3.1 Flash Image Preview"
+        },
+        "gemini-3.5-flash": {
+          "name": "Gemini 3.5 Flash"
+        },
+        "gemini-3.5-flash-low": {
+          "name": "Gemini 3.5 Flash Low"
+        },
+        "gemini-3-flash-agent": {
+          "name": "Gemini 3 Flash Agent"
+        },
+        "gemini-3-pro-image-preview": {
+          "name": "Gemini 3 Pro Image Preview"
+        },
+        "gemini-pro-agent": {
+          "name": "Gemini Pro Agent"
+        },
+        "gpt-5.3-codex-spark": {
+          "name": "GPT 5.3 Codex Spark"
+        },
+        "gpt-image-2": {
+          "name": "GPT Image 2"
+        },
+        "grok-3-mini": {
+          "name": "Grok 3 Mini"
+        },
+        "grok-3-mini-fast": {
+          "name": "Grok 3 Mini Fast"
+        },
+        "grok-4.20-0309-non-reasoning": {
+          "name": "Grok 4.20 0309 Non Reasoning"
+        },
+        "grok-4.20-0309-reasoning": {
+          "name": "Grok 4.20 0309 Reasoning"
+        },
+        "grok-4.20-multi-agent-0309": {
+          "name": "Grok 4.20 Multi Agent 0309"
+        },
+        "grok-4.3": {
+          "name": "Grok 4.3"
+        },
+        "grok-build-0.1": {
+          "name": "Grok Build 0.1"
+        },
+        "grok-composer-2.5-fast": {
+          "name": "Grok Composer 2.5 Fast"
+        },
+        "grok-imagine-image": {
+          "name": "Grok Imagine Image"
+        },
+        "grok-imagine-image-quality": {
+          "name": "Grok Imagine Image Quality"
+        },
+        "grok-imagine-video": {
+          "name": "Grok Imagine Video"
+        },
+        "grok-imagine-video-1.5-preview": {
+          "name": "Grok Imagine Video 1.5 Preview"
+        },
+        "imagen-3.0-fast-generate-001": {
+          "name": "Imagen 3.0 Fast Generate 001"
+        },
+        "imagen-3.0-generate-002": {
+          "name": "Imagen 3.0 Generate 002"
+        },
+        "imagen-4.0-fast-generate-001": {
+          "name": "Imagen 4.0 Fast Generate 001"
+        },
+        "imagen-4.0-generate-001": {
+          "name": "Imagen 4.0 Generate 001"
+        },
+        "imagen-4.0-ultra-generate-001": {
+          "name": "Imagen 4.0 Ultra Generate 001"
+        }
+      },
+      "name": "CLIProxyAPI",
       "npm": "@ai-sdk/openai-compatible",
-      "name": "CLIProxyAPI AG",
+      "options": {
+        "apiKey": "__SET_IN_LOCAL_ENV_OR_CONFIG__",
+        "baseURL": "__SET_IN_LOCAL_ENV_OR_CONFIG__"
+      }
+    },
+    "9router": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "9Router",
       "options": {
         "baseURL": "__SET_IN_LOCAL_ENV_OR_CONFIG__",
         "apiKey": "__SET_IN_LOCAL_ENV_OR_CONFIG__"
@@ -64,13 +965,13 @@
           "name": "Claude Sonnet 4 6"
         },
         "ag/gemini-3.1-pro-low": {
-          "name": "Gemini 3.1 Pro Low"
+          "name": "Gemini 3 1 Pro Low"
         },
         "ag/gemini-3.5-flash-extra-low": {
-          "name": "Gemini 3.5 Flash Extra Low"
+          "name": "Gemini 3 5 Flash Extra Low"
         },
         "ag/gemini-3.5-flash-low": {
-          "name": "Gemini 3.5 Flash Low"
+          "name": "Gemini 3 5 Flash Low"
         },
         "ag/gemini-3-flash": {
           "name": "Gemini 3 Flash"
@@ -82,79 +983,79 @@
           "name": "Gemini Pro Agent"
         },
         "ag/gpt-oss-120b-medium": {
-          "name": "GPT OSS 120B Medium"
+          "name": "Gpt Oss 120B Medium"
         },
         "cx/gpt-5.3-codex": {
-          "name": "GPT 5.3 Codex"
+          "name": "Cx Gpt 5 3 Codex"
         },
         "cx/gpt-5.3-codex-high": {
-          "name": "GPT 5.3 Codex High"
+          "name": "Cx Gpt 5 3 Codex High"
         },
         "cx/gpt-5.3-codex-high-review": {
-          "name": "GPT 5.3 Codex High Review"
+          "name": "Cx Gpt 5 3 Codex High Review"
         },
         "cx/gpt-5.3-codex-low": {
-          "name": "GPT 5.3 Codex Low"
+          "name": "Cx Gpt 5 3 Codex Low"
         },
         "cx/gpt-5.3-codex-low-review": {
-          "name": "GPT 5.3 Codex Low Review"
+          "name": "Cx Gpt 5 3 Codex Low Review"
         },
         "cx/gpt-5.3-codex-none": {
-          "name": "GPT 5.3 Codex None"
+          "name": "Cx Gpt 5 3 Codex None"
         },
         "cx/gpt-5.3-codex-none-review": {
-          "name": "GPT 5.3 Codex None Review"
+          "name": "Cx Gpt 5 3 Codex None Review"
         },
         "cx/gpt-5.3-codex-review": {
-          "name": "GPT 5.3 Codex Review"
+          "name": "Cx Gpt 5 3 Codex Review"
         },
         "cx/gpt-5.3-codex-spark": {
-          "name": "GPT 5.3 Codex Spark"
+          "name": "Cx Gpt 5 3 Codex Spark"
         },
         "cx/gpt-5.3-codex-spark-review": {
-          "name": "GPT 5.3 Codex Spark Review"
+          "name": "Cx Gpt 5 3 Codex Spark Review"
         },
         "cx/gpt-5.3-codex-xhigh": {
-          "name": "GPT 5.3 Codex XHigh"
+          "name": "Cx Gpt 5 3 Codex Xhigh"
         },
         "cx/gpt-5.3-codex-xhigh-review": {
-          "name": "GPT 5.3 Codex XHigh Review"
+          "name": "Cx Gpt 5 3 Codex Xhigh Review"
         },
         "cx/gpt-5.4": {
-          "name": "GPT 5.4"
+          "name": "Cx Gpt 5 4"
         },
         "cx/gpt-5.4-mini": {
-          "name": "GPT 5.4 Mini"
+          "name": "Cx Gpt 5 4 Mini"
         },
         "cx/gpt-5.4-mini-review": {
-          "name": "GPT 5.4 Mini Review"
+          "name": "Cx Gpt 5 4 Mini Review"
         },
         "cx/gpt-5.4-review": {
-          "name": "GPT 5.4 Review"
+          "name": "Cx Gpt 5 4 Review"
         },
         "cx/gpt-5.5": {
-          "name": "GPT 5.5"
+          "name": "Cx Gpt 5 5"
         },
         "cx/gpt-5.5-review": {
-          "name": "GPT 5.5 Review"
+          "name": "Cx Gpt 5 5 Review"
         },
         "gc/gemini-3-flash-preview": {
-          "name": "Gemini 3 Flash Preview"
+          "name": "Gc Gemini 3 Flash Preview"
         },
         "gc/gemini-3-pro-preview": {
-          "name": "Gemini 3 Pro Preview"
+          "name": "Gc Gemini 3 Pro Preview"
         },
         "glm/glm-4.6v": {
-          "name": "GLM 4.6V"
+          "name": "Glm Glm 4 6V"
         },
         "glm/glm-4.7": {
-          "name": "GLM 4.7"
+          "name": "Glm Glm 4 7"
         },
         "glm/glm-5": {
-          "name": "GLM 5"
+          "name": "Glm Glm 5"
         },
         "glm/glm-5.1": {
-          "name": "GLM 5.1"
+          "name": "Glm Glm 5 1"
         }
       }
     }

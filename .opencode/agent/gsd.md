@@ -25,21 +25,21 @@ Turn rough intent into shipped, verified work. Use GSD's modes, granularity, nam
 
 ## Subagent Model Selection
 
-**Default subagent model: `cliproxyapi/ag/gemini-3-flash-agent`** — all subagents use this unless the user overrides it. Add or refresh provider models only from the provider's `/v1/models` response; never invent model IDs.
+**Default subagent model: `9router/ag/gemini-3-flash-agent`** — all subagents use this unless the user overrides it. Add or refresh provider models only from the provider's `/v1/models` response; never invent model IDs.
 
 ### First-run prompt (interactive mode only)
 
 When starting a new task in `interactive` mode, ask the user **once** before any delegation:
 
 ```
-Which model should subagents use? (default: cliproxyapi/ag/gemini-3-flash-agent)
-  1. cliproxyapi/ag/gemini-3-flash-agent  (default — balanced cost/quality)
-  2. cliproxyapi/ag/claude-sonnet-4-6  (higher quality, higher cost)
-  3. cliproxyapi/ag/gemini-3.5-flash-low  (budget, fast)
+Which model should subagents use? (default: 9router/ag/gemini-3-flash-agent)
+  1. 9router/ag/gemini-3-flash-agent  (default — balanced cost/quality)
+  2. 9router/ag/claude-sonnet-4-6  (higher quality, higher cost)
+  3. 9router/ag/gemini-3.5-flash-low  (budget, fast)
   4. Other (specify model ID)
 ```
 
-In `auto` or `yolo` mode, skip the prompt and use `cliproxyapi/ag/gemini-3-flash-agent` for all subagents automatically.
+In `auto` or `yolo` mode, skip the prompt and use `9router/ag/gemini-3-flash-agent` for all subagents automatically.
 
 Store the user's choice for the session and apply it to every `task()` dispatch.
 
@@ -47,17 +47,17 @@ Store the user's choice for the session and apply it to every `task()` dispatch.
 
 | Task Type | Subagent | Default |
 | --- | --- | --- |
-| Codebase exploration, search | `@explore` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
-| External docs/research | `@scout` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
-| Ethical writing revision, AI-signal analysis | `@stealthhumanizer` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
-| Small implementation tasks | `@general` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
-| Architecture/execution plans | `@plan` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
-| Code review, security audit | `@review` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
-| Codebase understanding | `@socraticode-explorer` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
+| Codebase exploration, search | `@explore` | User-selected model (default `9router/ag/gemini-3-flash-agent`) |
+| External docs/research | `@scout` | User-selected model (default `9router/ag/gemini-3-flash-agent`) |
+| Ethical writing revision, AI-signal analysis | `@stealthhumanizer` | User-selected model (default `9router/ag/gemini-3-flash-agent`) |
+| Small implementation tasks | `@general` | User-selected model (default `9router/ag/gemini-3-flash-agent`) |
+| Architecture/execution plans | `@plan` | User-selected model (default `9router/ag/gemini-3-flash-agent`) |
+| Code review, security audit | `@review` | User-selected model (default `9router/ag/gemini-3-flash-agent`) |
+| Codebase understanding | `@socraticode-explorer` | User-selected model (default `9router/ag/gemini-3-flash-agent`) |
 | Orchestration decisions | Lead (self) | Main session model (no delegation) |
 
 **Rules:**
-- All subagents default to `cliproxyapi/ag/gemini-3-flash-agent` unless the user picks a different model.
+- All subagents default to `9router/ag/gemini-3-flash-agent` unless the user picks a different model.
 - The main session model is only used for the lead orchestrator's own reasoning — never for subagent work.
 - When dispatching `task()`, always specify `subagent_type` to match the routing table above.
 
@@ -81,7 +81,7 @@ Default to `interactive` unless the user specifies otherwise.
 
 ## Model Profiles
 
-Treat model profiles as delegation-depth hints, not model overrides. All subagents use `cliproxyapi/ag/gemini-3-flash-agent` by default regardless of profile.
+Treat model profiles as delegation-depth hints, not model overrides. All subagents use `9router/ag/gemini-3-flash-agent` by default regardless of profile.
 
 | Profile | Delegation Depth |
 | --- | --- |
