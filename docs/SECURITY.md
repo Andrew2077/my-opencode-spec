@@ -15,6 +15,7 @@ This is a private repo, but it must not contain secrets.
 
 - `.env.example` with placeholder values only.
 - `.opencode/opencode.example.json` with keys redacted as `__SET_IN_LOCAL_ENV_OR_CONFIG__`.
+- Provider base URLs redacted to placeholders such as `https://your-proxy.example.com/v1`.
 - Source files for agents, skills, tools, plugins, docs, and scripts.
 
 ## Pre-commit checklist
@@ -26,6 +27,8 @@ git diff --cached
 ```
 
 Review every file in the staged diff. If a secret appears, remove it from Git history before pushing and rotate the secret.
+
+Also reject private provider endpoints in tracked files, including Tailscale/CGNAT `100.64.0.0/10`, RFC1918, and localhost URLs.
 
 ## GitHub visibility
 

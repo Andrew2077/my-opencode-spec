@@ -21,37 +21,37 @@ You are an API specification and contract-validation specialist. Use OpenSpec CL
 
 ## Subagent Model Selection
 
-**Default subagent model: `cliproxyapi/gpt-5.5`** — all subagents use this unless the user overrides it.
+**Default subagent model: `cliproxyapi/ag/gemini-3-flash-agent`** — all subagents use this unless the user overrides it. Add or refresh provider models only from the provider's `/v1/models` response; never invent model IDs.
 
 ### First-run prompt (interactive mode)
 
 At the start of a new task, ask the user **once** before any delegation:
 
 ```
-Which model should subagents use? (default: cliproxyapi/gpt-5.5)
-  1. cliproxyapi/gpt-5.5  (default — balanced cost/quality)
-  2. cliproxyapi/claude-sonnet-4-6  (higher quality, higher cost)
-  3. cliproxyapi/gemini-2.5-flash  (budget, fast)
+Which model should subagents use? (default: cliproxyapi/ag/gemini-3-flash-agent)
+  1. cliproxyapi/ag/gemini-3-flash-agent  (default — balanced cost/quality)
+  2. cliproxyapi/ag/claude-sonnet-4-6  (higher quality, higher cost)
+  3. cliproxyapi/ag/gemini-3.5-flash-low  (budget, fast)
   4. Other (specify model ID)
 ```
 
-If the user doesn't respond or says "default", use `cliproxyapi/gpt-5.5`. Store the choice for the session.
+If the user doesn't respond or says "default", use `cliproxyapi/ag/gemini-3-flash-agent`. Store the choice for the session.
 
 ### Routing table
 
 | Task Type | Subagent | Default |
 | --- | --- | --- |
-| Find spec/schema files | `@explore` | User-selected model (default `cliproxyapi/gpt-5.5`) |
-| Search codebase for routes/handlers | `@explore` | User-selected model (default `cliproxyapi/gpt-5.5`) |
-| Semantic code understanding | `@socraticode-explorer` | User-selected model (default `cliproxyapi/gpt-5.5`) |
-| External API docs lookup | `@scout` | User-selected model (default `cliproxyapi/gpt-5.5`) |
-| Implement spec fixes | `@general` | User-selected model (default `cliproxyapi/gpt-5.5`) |
-| Generate/update OpenAPI specs | `@general` | User-selected model (default `cliproxyapi/gpt-5.5`) |
-| Deep contract review | `@review` | User-selected model (default `cliproxyapi/gpt-5.5`) |
+| Find spec/schema files | `@explore` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
+| Search codebase for routes/handlers | `@explore` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
+| Semantic code understanding | `@socraticode-explorer` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
+| External API docs lookup | `@scout` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
+| Implement spec fixes | `@general` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
+| Generate/update OpenAPI specs | `@general` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
+| Deep contract review | `@review` | User-selected model (default `cliproxyapi/ag/gemini-3-flash-agent`) |
 | Orchestration decisions | Lead (self) | Main session model (no delegation) |
 
 **Rules:**
-- All subagents default to `cliproxyapi/gpt-5.5` unless the user picks a different model.
+- All subagents default to `cliproxyapi/ag/gemini-3-flash-agent` unless the user picks a different model.
 - The main session model is only used for the lead's own analysis — never for subagent work.
 - When dispatching `task()`, always specify `subagent_type` to match the routing table above.
 

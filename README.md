@@ -100,6 +100,8 @@ if (-not (Test-Path "$HOME\.opencode\opencode.json")) {
 
 The user must edit those local files with real provider keys. Do not invent keys.
 
+For CLIProxyAPI AG, fetch model IDs from the live OpenAI-compatible `/v1/models` endpoint before adding or refreshing config. Keep the real endpoint and key only in local config/env; commit only placeholders.
+
 ### Linux or VPS install flow
 
 The PowerShell install script is the source of truth on Windows. On Linux/VPS hosts without PowerShell, mirror its behavior with shell commands:
@@ -149,7 +151,7 @@ if (fs.existsSync(path)) {
 
 config.agent = config.agent || {};
 config.agent['socraticode-explorer'] = {
-  model: 'cliproxyapi/gpt-5.5',
+  model: 'cliproxyapi/ag/gemini-3-flash-agent',
   mode: 'all',
 };
 
@@ -189,7 +191,7 @@ if (fs.existsSync(path)) {
 
 config.agent = config.agent || {};
 config.agent.stealthhumanizer = {
-  model: 'cliproxyapi/gpt-5.5',
+  model: 'cliproxyapi/ag/gemini-3-flash-agent',
   mode: 'all',
 };
 
@@ -277,7 +279,7 @@ npm --prefix "$HOME\tools\StealthHumanizer" run cli:build
 npm --prefix "$HOME\tools\StealthHumanizer" run cli -- providers
 ```
 
-The repo update script applies `patches/stealthhumanizer-cpa.patch` to the local clone. That patch adds `cpa-gpt-55` (`gpt-5.5`) and `cpa-gemini-35-flash` (`gemini-3.5-flash`) providers and auto-loads CLIProxyAPI config from local OpenCode config without committing secrets.
+The repo update script applies `patches/stealthhumanizer-cpa.patch` to the local clone. That patch adds `cpa-gpt-55` (`cx/gpt-5.5`) and `cpa-gemini-35-flash` (`ag/gemini-3.5-flash-low`) providers and auto-loads CLIProxyAPI config from local OpenCode config without committing secrets.
 
 Use the agent for clarity, style, grammar, readability, and diagnostic detector-style scoring. Do not use it to hide AI authorship, bypass institutional detectors, or remove required provenance/citations.
 
@@ -303,13 +305,31 @@ The agent is a meta-orchestrator: it applies GSD methodology and delegates to ex
 
 ### Subagent Model Selection (Quota Protection)
 
-Both the `gsd` and `openspec-engineer` agents default all subagents to `cliproxyapi/gpt-5.5`:
+Both the `gsd` and `openspec-engineer` agents default all subagents to `cliproxyapi/ag/gemini-3-flash-agent`:
 
 - In `interactive` mode, the agent asks which model to use **once** at session start.
-- In `auto`/`yolo` mode, it uses `cliproxyapi/gpt-5.5` without asking.
+- In `auto`/`yolo` mode, it uses `cliproxyapi/ag/gemini-3-flash-agent` without asking.
 - The main session model is only used for the lead orchestrator's own reasoning.
 
-The `compaction` agent also uses `cliproxyapi/gpt-5.5` to avoid burning expensive quota during context compaction.
+The `compaction` agent also uses `cliproxyapi/ag/gemini-3-flash-agent` to avoid burning expensive quota during context compaction.
+
+### CLIProxyAPI AG provider
+
+This repo includes a sanitized OpenAI-compatible `cliproxyapi` provider template. Live config must use the real endpoint/key locally; repo config uses `__SET_IN_LOCAL_ENV_OR_CONFIG__` placeholders.
+
+When refreshing provider models, query the live endpoint first and copy exact IDs from `data[].id`:
+
+```powershell
+$env:CLIPROXYAPI_BASE_URL = "https://your-proxy.example.com/v1"
+$env:CLIPROXYAPI_API_KEY = "__SET_IN_LOCAL_ENV_OR_CONFIG__"
+curl.exe -s -H "Authorization: Bearer $env:CLIPROXYAPI_API_KEY" "$env:CLIPROXYAPI_BASE_URL/models"
+```
+
+Current AG defaults from `/v1/models`:
+
+- Default: `cliproxyapi/ag/gemini-3-flash-agent`
+- Budget: `cliproxyapi/ag/gemini-3.5-flash-low`
+- Higher-quality option: `cliproxyapi/ag/claude-sonnet-4-6`
 
 ## Update Tools
 

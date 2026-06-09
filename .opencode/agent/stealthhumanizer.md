@@ -30,7 +30,7 @@ Verified CLI facts:
 - CLI commands: `humanize`, `detect`, `providers`.
 - Local command pattern from clone root: `npm run cli -- <command> ...`.
 - Built/linked binaries, when available: `stealthhumanizer` and `stealth-humanize`.
-- Preferred CPA providers are available when local OpenCode config has `provider.cliproxyapi.options`: `cpa-gpt-55` (default `gpt-5.5`) and `cpa-gemini-35-flash` (default `gemini-3.5-flash`).
+- Preferred CPA providers are available when local OpenCode config has `provider.cliproxyapi.options`: `cpa-gpt-55` (default `cx/gpt-5.5`) and `cpa-gemini-35-flash` (default `ag/gemini-3.5-flash-low`). OpenCode agents default to `cliproxyapi/ag/gemini-3-flash-agent`.
 
 ## Ethical Boundary
 
@@ -82,7 +82,7 @@ npm run cli -- humanize --input draft.txt --output revised.txt --style professio
 Provider auth:
 - `detect` needs no provider key.
 - Default to CPA GPT-5.5 for high-quality revisions when available: `--model cpa-gpt-55`.
-- Use CPA Gemini 3.5 Flash for faster/budget revisions: `--model cpa-gemini-35-flash`.
+- Use CPA Gemini 3.5 Flash Low for faster/budget revisions: `--model cpa-gemini-35-flash`.
 - CPA providers auto-load `CLIPROXYAPI_API_KEY` and `CLIPROXYAPI_BASE_URL` from `$HOME/.opencode/opencode.json` when explicit env vars are not set.
 - Other `humanize` providers need a provider API key env var unless using CLI-runner providers.
 - Never print API keys. Never read `.env` aloud. Prefer env vars already set in the shell.

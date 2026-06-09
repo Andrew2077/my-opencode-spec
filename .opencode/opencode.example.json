@@ -1,13 +1,162 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "model": "cliproxyapi/ag/gemini-3-flash-agent",
+  "small_model": "cliproxyapi/ag/gemini-3.5-flash-low",
   "agent": {
+    "build": {
+      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "mode": "all"
+    },
+    "plan": {
+      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "mode": "all"
+    },
+    "general": {
+      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "mode": "all"
+    },
+    "explore": {
+      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "mode": "all"
+    },
+    "review": {
+      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "mode": "all"
+    },
+    "scout": {
+      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "mode": "all"
+    },
     "socraticode-explorer": {
-      "model": "cliproxyapi/gpt-5.5",
+      "model": "cliproxyapi/ag/gemini-3-flash-agent",
       "mode": "all"
     },
     "stealthhumanizer": {
-      "model": "cliproxyapi/gpt-5.5",
+      "model": "cliproxyapi/ag/gemini-3-flash-agent",
       "mode": "all"
+    },
+    "openspec-engineer": {
+      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "mode": "all"
+    },
+    "gsd": {
+      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "mode": "all"
+    },
+    "compaction": {
+      "model": "cliproxyapi/ag/gemini-3-flash-agent",
+      "mode": "all"
+    }
+  },
+  "provider": {
+    "cliproxyapi": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "CLIProxyAPI AG",
+      "options": {
+        "baseURL": "__SET_IN_LOCAL_ENV_OR_CONFIG__",
+        "apiKey": "__SET_IN_LOCAL_ENV_OR_CONFIG__"
+      },
+      "models": {
+        "ag/claude-opus-4-6-thinking": {
+          "name": "Claude Opus 4 6 Thinking"
+        },
+        "ag/claude-sonnet-4-6": {
+          "name": "Claude Sonnet 4 6"
+        },
+        "ag/gemini-3.1-pro-low": {
+          "name": "Gemini 3.1 Pro Low"
+        },
+        "ag/gemini-3.5-flash-extra-low": {
+          "name": "Gemini 3.5 Flash Extra Low"
+        },
+        "ag/gemini-3.5-flash-low": {
+          "name": "Gemini 3.5 Flash Low"
+        },
+        "ag/gemini-3-flash": {
+          "name": "Gemini 3 Flash"
+        },
+        "ag/gemini-3-flash-agent": {
+          "name": "Gemini 3 Flash Agent"
+        },
+        "ag/gemini-pro-agent": {
+          "name": "Gemini Pro Agent"
+        },
+        "ag/gpt-oss-120b-medium": {
+          "name": "GPT OSS 120B Medium"
+        },
+        "cx/gpt-5.3-codex": {
+          "name": "GPT 5.3 Codex"
+        },
+        "cx/gpt-5.3-codex-high": {
+          "name": "GPT 5.3 Codex High"
+        },
+        "cx/gpt-5.3-codex-high-review": {
+          "name": "GPT 5.3 Codex High Review"
+        },
+        "cx/gpt-5.3-codex-low": {
+          "name": "GPT 5.3 Codex Low"
+        },
+        "cx/gpt-5.3-codex-low-review": {
+          "name": "GPT 5.3 Codex Low Review"
+        },
+        "cx/gpt-5.3-codex-none": {
+          "name": "GPT 5.3 Codex None"
+        },
+        "cx/gpt-5.3-codex-none-review": {
+          "name": "GPT 5.3 Codex None Review"
+        },
+        "cx/gpt-5.3-codex-review": {
+          "name": "GPT 5.3 Codex Review"
+        },
+        "cx/gpt-5.3-codex-spark": {
+          "name": "GPT 5.3 Codex Spark"
+        },
+        "cx/gpt-5.3-codex-spark-review": {
+          "name": "GPT 5.3 Codex Spark Review"
+        },
+        "cx/gpt-5.3-codex-xhigh": {
+          "name": "GPT 5.3 Codex XHigh"
+        },
+        "cx/gpt-5.3-codex-xhigh-review": {
+          "name": "GPT 5.3 Codex XHigh Review"
+        },
+        "cx/gpt-5.4": {
+          "name": "GPT 5.4"
+        },
+        "cx/gpt-5.4-mini": {
+          "name": "GPT 5.4 Mini"
+        },
+        "cx/gpt-5.4-mini-review": {
+          "name": "GPT 5.4 Mini Review"
+        },
+        "cx/gpt-5.4-review": {
+          "name": "GPT 5.4 Review"
+        },
+        "cx/gpt-5.5": {
+          "name": "GPT 5.5"
+        },
+        "cx/gpt-5.5-review": {
+          "name": "GPT 5.5 Review"
+        },
+        "gc/gemini-3-flash-preview": {
+          "name": "Gemini 3 Flash Preview"
+        },
+        "gc/gemini-3-pro-preview": {
+          "name": "Gemini 3 Pro Preview"
+        },
+        "glm/glm-4.6v": {
+          "name": "GLM 4.6V"
+        },
+        "glm/glm-4.7": {
+          "name": "GLM 4.7"
+        },
+        "glm/glm-5": {
+          "name": "GLM 5"
+        },
+        "glm/glm-5.1": {
+          "name": "GLM 5.1"
+        }
+      }
     }
   },
   "mcp": {
