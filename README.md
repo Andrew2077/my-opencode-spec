@@ -151,7 +151,7 @@ if (fs.existsSync(path)) {
 
 config.agent = config.agent || {};
 config.agent['socraticode-explorer'] = {
-  model: '9router/ag/gemini-3-flash-agent',
+  model: '9router/cx/gpt-5.5',
   mode: 'all',
 };
 
@@ -191,7 +191,7 @@ if (fs.existsSync(path)) {
 
 config.agent = config.agent || {};
 config.agent.stealthhumanizer = {
-  model: '9router/ag/gemini-3-flash-agent',
+  model: '9router/cx/gpt-5.5',
   mode: 'all',
 };
 
@@ -305,13 +305,13 @@ The agent is a meta-orchestrator: it applies GSD methodology and delegates to ex
 
 ### Subagent Model Selection (Quota Protection)
 
-Both the `gsd` and `openspec-engineer` agents default all subagents to `9router/ag/gemini-3-flash-agent`:
+OpenCode defaults most agents to `9router/cx/gpt-5.5`; plan mode uses `9router/cc/claude-opus-4-8`:
 
 - In `interactive` mode, the agent asks which model to use **once** at session start.
-- In `auto`/`yolo` mode, it uses `9router/ag/gemini-3-flash-agent` without asking.
+- In `auto`/`yolo` mode, it uses `9router/cx/gpt-5.5` without asking.
 - The main session model is only used for the lead orchestrator's own reasoning.
 
-The `compaction` agent also uses `9router/ag/gemini-3-flash-agent` to avoid burning expensive quota during context compaction.
+The `compaction` agent uses `9router/cx/gpt-5.5`; the `plan` agent uses `9router/cc/claude-opus-4-8`.
 
 ### 9Router provider
 
@@ -325,11 +325,11 @@ $env:NINEROUTER_API_KEY = "__SET_IN_LOCAL_ENV_OR_CONFIG__"
 curl.exe -s -H "Authorization: Bearer $env:NINEROUTER_API_KEY" "$env:NINEROUTER_BASE_URL/models"
 ```
 
-Current AG defaults from `/v1/models`:
+Current 9Router defaults from `/v1/models`:
 
-- Default: `9router/ag/gemini-3-flash-agent`
+- Default: `9router/cx/gpt-5.5`
 - Budget: `9router/ag/gemini-3.5-flash-low`
-- Higher-quality option: `9router/ag/claude-sonnet-4-6`
+- Plan mode: `9router/cc/claude-opus-4-8`
 
 ## Update Tools
 

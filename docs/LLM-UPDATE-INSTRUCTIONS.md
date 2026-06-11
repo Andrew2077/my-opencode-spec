@@ -40,7 +40,7 @@ npm --prefix "$HOME/tools/StealthHumanizer" run cli:build
 
 This setup applies `patches/stealthhumanizer-cpa.patch` after cloning/updating StealthHumanizer. The patch adds CPA providers `cpa-gpt-55` (`cx/gpt-5.5`) and `cpa-gemini-35-flash` (`ag/gemini-3.5-flash-low`) and lets the CLI read `provider.cliproxyapi.options` from `$HOME/.opencode/opencode.json` without duplicating secrets.
 
-For OpenCode agent defaults, prefer AG models from the live `9router` `/v1/models` response. Never invent model IDs. Current default is `9router/ag/gemini-3-flash-agent`; budget fallback is `9router/ag/gemini-3.5-flash-low`. Preserve legacy `cliproxyapi` alongside `9router`; do not overwrite it.
+For OpenCode agent defaults, prefer AG models from the live `9router` `/v1/models` response. Never invent model IDs. Current default is `9router/cx/gpt-5.5`; plan mode is `9router/cc/claude-opus-4-8`; budget fallback is `9router/ag/gemini-3.5-flash-low`. Preserve legacy `cliproxyapi` alongside `9router`; do not overwrite it.
 
 ## Step 3: Re-run GSD installer (fetches latest commands/agents/skills)
 
@@ -179,13 +179,13 @@ Only push after explicit user approval.
 
 ## Compaction agent model
 
-The `compaction` agent must always use the current AG default. After any sync, verify this entry exists in `opencode.example.json`:
+The `compaction` agent must always use `9router/cx/gpt-5.5`, while `plan` uses `9router/cc/claude-opus-4-8`. After any sync, verify this entry exists in `opencode.example.json`:
 
 ```json
 "compaction": {
-  "model": "9router/ag/gemini-3-flash-agent",
+  "model": "9router/cx/gpt-5.5",
   "mode": "all"
 }
 ```
 
-If missing, add it. This ensures context compaction uses the AG default instead of the expensive main session model.
+If missing, add it. This ensures context compaction uses `9router/cx/gpt-5.5` instead of the expensive main session model.

@@ -1,51 +1,51 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "9router/ag/gemini-3-flash-agent",
-  "small_model": "9router/ag/gemini-3.5-flash-low",
+  "model": "9router/cx/gpt-5.5",
+  "small_model": "9router/cx/gpt-5.5",
   "agent": {
     "build": {
-      "model": "9router/ag/gemini-3-flash-agent",
-      "mode": "all"
+      "mode": "all",
+      "model": "9router/cx/gpt-5.5"
     },
     "plan": {
-      "model": "9router/ag/gemini-3-flash-agent",
-      "mode": "all"
+      "mode": "all",
+      "model": "9router/cc/claude-opus-4-8"
     },
     "general": {
-      "model": "9router/ag/gemini-3-flash-agent",
-      "mode": "all"
+      "mode": "all",
+      "model": "9router/cx/gpt-5.5"
     },
     "explore": {
-      "model": "9router/ag/gemini-3-flash-agent",
-      "mode": "all"
+      "mode": "all",
+      "model": "9router/cx/gpt-5.5"
     },
     "review": {
-      "model": "9router/ag/gemini-3-flash-agent",
-      "mode": "all"
+      "mode": "all",
+      "model": "9router/cx/gpt-5.5"
     },
     "scout": {
-      "model": "9router/ag/gemini-3-flash-agent",
-      "mode": "all"
+      "mode": "all",
+      "model": "9router/cx/gpt-5.5"
     },
     "socraticode-explorer": {
-      "model": "9router/ag/gemini-3-flash-agent",
-      "mode": "all"
+      "mode": "all",
+      "model": "9router/cx/gpt-5.5"
     },
     "stealthhumanizer": {
-      "model": "9router/ag/gemini-3-flash-agent",
-      "mode": "all"
+      "mode": "all",
+      "model": "9router/cx/gpt-5.5"
     },
     "openspec-engineer": {
-      "model": "9router/ag/gemini-3-flash-agent",
-      "mode": "all"
+      "mode": "all",
+      "model": "9router/cx/gpt-5.5"
     },
     "gsd": {
-      "model": "9router/ag/gemini-3-flash-agent",
-      "mode": "all"
+      "mode": "all",
+      "model": "9router/cx/gpt-5.5"
     },
     "compaction": {
-      "model": "9router/ag/gemini-3-flash-agent",
-      "mode": "all"
+      "mode": "all",
+      "model": "9router/cx/gpt-5.5"
     }
   },
   "provider": {
@@ -985,77 +985,101 @@
         "ag/gpt-oss-120b-medium": {
           "name": "Gpt Oss 120B Medium"
         },
+        "cc/claude-fable-5": {
+          "name": "Claude Fable 5"
+        },
+        "cc/claude-haiku-4-5-20251001": {
+          "name": "Claude Haiku 4 5 20251001"
+        },
+        "cc/claude-opus-4-5-20251101": {
+          "name": "Claude Opus 4 5 20251101"
+        },
+        "cc/claude-opus-4-6": {
+          "name": "Claude Opus 4 6"
+        },
+        "cc/claude-opus-4-7": {
+          "name": "Claude Opus 4 7"
+        },
+        "cc/claude-opus-4-8": {
+          "name": "Claude Opus 4 8"
+        },
+        "cc/claude-sonnet-4-5-20250929": {
+          "name": "Claude Sonnet 4 5 20250929"
+        },
+        "cc/claude-sonnet-4-6": {
+          "name": "Claude Sonnet 4 6"
+        },
         "cx/gpt-5.3-codex": {
-          "name": "Cx Gpt 5 3 Codex"
+          "name": "Gpt 5 3 Codex"
         },
         "cx/gpt-5.3-codex-high": {
-          "name": "Cx Gpt 5 3 Codex High"
+          "name": "Gpt 5 3 Codex High"
         },
         "cx/gpt-5.3-codex-high-review": {
-          "name": "Cx Gpt 5 3 Codex High Review"
+          "name": "Gpt 5 3 Codex High Review"
         },
         "cx/gpt-5.3-codex-low": {
-          "name": "Cx Gpt 5 3 Codex Low"
+          "name": "Gpt 5 3 Codex Low"
         },
         "cx/gpt-5.3-codex-low-review": {
-          "name": "Cx Gpt 5 3 Codex Low Review"
+          "name": "Gpt 5 3 Codex Low Review"
         },
         "cx/gpt-5.3-codex-none": {
-          "name": "Cx Gpt 5 3 Codex None"
+          "name": "Gpt 5 3 Codex None"
         },
         "cx/gpt-5.3-codex-none-review": {
-          "name": "Cx Gpt 5 3 Codex None Review"
+          "name": "Gpt 5 3 Codex None Review"
         },
         "cx/gpt-5.3-codex-review": {
-          "name": "Cx Gpt 5 3 Codex Review"
+          "name": "Gpt 5 3 Codex Review"
         },
         "cx/gpt-5.3-codex-spark": {
-          "name": "Cx Gpt 5 3 Codex Spark"
+          "name": "Gpt 5 3 Codex Spark"
         },
         "cx/gpt-5.3-codex-spark-review": {
-          "name": "Cx Gpt 5 3 Codex Spark Review"
+          "name": "Gpt 5 3 Codex Spark Review"
         },
         "cx/gpt-5.3-codex-xhigh": {
-          "name": "Cx Gpt 5 3 Codex Xhigh"
+          "name": "Gpt 5 3 Codex Xhigh"
         },
         "cx/gpt-5.3-codex-xhigh-review": {
-          "name": "Cx Gpt 5 3 Codex Xhigh Review"
+          "name": "Gpt 5 3 Codex Xhigh Review"
         },
         "cx/gpt-5.4": {
-          "name": "Cx Gpt 5 4"
+          "name": "Gpt 5 4"
         },
         "cx/gpt-5.4-mini": {
-          "name": "Cx Gpt 5 4 Mini"
+          "name": "Gpt 5 4 Mini"
         },
         "cx/gpt-5.4-mini-review": {
-          "name": "Cx Gpt 5 4 Mini Review"
+          "name": "Gpt 5 4 Mini Review"
         },
         "cx/gpt-5.4-review": {
-          "name": "Cx Gpt 5 4 Review"
+          "name": "Gpt 5 4 Review"
         },
         "cx/gpt-5.5": {
-          "name": "Cx Gpt 5 5"
+          "name": "Gpt 5 5"
         },
         "cx/gpt-5.5-review": {
-          "name": "Cx Gpt 5 5 Review"
+          "name": "Gpt 5 5 Review"
         },
         "gc/gemini-3-flash-preview": {
-          "name": "Gc Gemini 3 Flash Preview"
+          "name": "Gemini 3 Flash Preview"
         },
         "gc/gemini-3-pro-preview": {
-          "name": "Gc Gemini 3 Pro Preview"
+          "name": "Gemini 3 Pro Preview"
         },
         "glm/glm-4.6v": {
-          "name": "Glm Glm 4 6V"
+          "name": "Glm 4 6V"
         },
         "glm/glm-4.7": {
-          "name": "Glm Glm 4 7"
+          "name": "Glm 4 7"
         },
         "glm/glm-5": {
-          "name": "Glm Glm 5"
+          "name": "Glm 5"
         },
         "glm/glm-5.1": {
-          "name": "Glm Glm 5 1"
+          "name": "Glm 5 1"
         }
       }
     }
